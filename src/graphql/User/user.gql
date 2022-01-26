@@ -1,0 +1,11 @@
+query allUsuarios{
+  allUsuarios{
+    edges{
+    	node{
+        nombre
+        contrasena
+        correo
+    	}
+    }
+  }
+}
