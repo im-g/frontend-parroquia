@@ -1,55 +1,78 @@
 <template>
-    <div>
-      <div class="wrapper fadeInDown">
-        <h3>Gestión Parroquial Santisima Trinidad</h3>
-        <h3>Registrarse</h3>
-        <div id="formContent">
-          <form v-on:submit.prevent="Registrarme">
-            <input
-              type="text"
-              v-model="nombre"
-              id="nombre"
-              class="fadeIn second"
-              name="nombre"
-              placeholder="Nombre"
+  <div>
+    <div class="wrapper fadeInDown">
+      <div class="row">
+        <h1
+          class="mb-3"
+          style="color: #2b7797; font-family: 'Oswald', sans-serif"
+        >
+          Gestión Parroquial Santisima Trinidad
+        </h1>
+      </div>
+
+      <div class="row">
+        <div class="col-md">
+          <div class="contenedor">
+            <img
+              src="@/../images/logo_parroquia.jpg"
+              class="rounded-circle"
+              style="object-fit: cover"
+              width="320"
+              height="320"
             />
-            <input
-              type="text"
-              v-model="Telefono"
-              id="telefono"
-              class="fadeIn second"
-              name="telefono"
-              placeholder="telefono"
-            />
-            <input
-              type="text"
-              v-model="email"
-              id="login"
-              class="fadeIn second"
-              name="login"
-              placeholder="email"
-            />
-            <input
-              type="text"
-              v-model="password"
-              id="password"
-              class="fadeIn third"
-              name="login"
-              placeholder="contraseña"
-            />
-            <input
-              type="text"
-              v-model="fechaNacimiento"
-              id="password"
-              class="fadeIn third"
-              name="login"
-              placeholder="Fecha de Nacimiento"
-            />
-            <input type="submit" class="fadeIn fourth" value="Registrarme" />
-          </form>
+          </div>
+        </div>
+        <div class="col-md">
+          <div id="formContent">
+            <h5 class="pt-3" style="color:#1D566F; font-family: 'Oswald', sans-serif;">Registrarse</h5>
+            <form v-on:submit.prevent="Registrarme">
+              <input
+                type="text"
+                v-model="nombre"
+                id="nombre"
+                class="fadeIn second"
+                name="nombre"
+                placeholder="Nombre"
+              />
+              <input
+                type="text"
+                v-model="Telefono"
+                id="telefono"
+                class="fadeIn second"
+                name="telefono"
+                placeholder="telefono"
+              />
+              <input
+                type="text"
+                v-model="email"
+                id="login"
+                class="fadeIn second"
+                name="login"
+                placeholder="email"
+              />
+              <input
+                type="text"
+                v-model="password"
+                id="password"
+                class="fadeIn third"
+                name="login"
+                placeholder="contraseña"
+              />
+              <input
+                type="text"
+                v-model="fechaNacimiento"
+                id="password"
+                class="fadeIn third"
+                name="login"
+                placeholder="Fecha de Nacimiento"
+              />
+              <input type="submit" class="fadeIn fourth" value="Registrarme" />
+            </form>
+          </div>
         </div>
       </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -83,7 +106,7 @@ export default {
             email: this.email,
             contrasena: this.password,
             fechanac: this.fechaNacimiento,
-            },
+          },
           //línea para actualizar
           fetchPolicy: "no-cache",
         })
@@ -96,6 +119,11 @@ export default {
 };
 </script>
 <style scoped>
+.contenedor {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
 html {
   background-color: #56baed;
 }
