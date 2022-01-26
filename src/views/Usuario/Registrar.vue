@@ -24,7 +24,12 @@
         </div>
         <div class="col-md">
           <div id="formContent">
-            <h5 class="pt-3" style="color:#1D566F; font-family: 'Oswald', sans-serif;">Registrarse</h5>
+            <h5
+              class="pt-3"
+              style="color: #1d566f; font-family: 'Oswald', sans-serif"
+            >
+              Registrarse
+            </h5>
             <form v-on:submit.prevent="Registrarme">
               <input
                 type="text"
@@ -59,12 +64,13 @@
                 placeholder="contraseña"
               />
               <input
-                type="text"
-                v-model="fechaNacimiento"
-                id="password"
+                type="date"
+                id="start"
                 class="fadeIn third"
+                v-model="fechaNacimiento"
                 name="login"
-                placeholder="Fecha de Nacimiento"
+                min="1950-01-01"
+                max="2020-12-31"
               />
               <input type="submit" class="fadeIn fourth" value="Registrarme" />
             </form>
@@ -237,7 +243,26 @@ input[type="reset"]:active {
   -ms-transform: scale(0.95);
   transform: scale(0.95);
 }
-
+input[type="date"]{
+  background-color: #f6f6f6;
+  border: none;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  display: inline-block;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px;
+  width: 85%;
+  border: 2px solid #f6f6f6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
 input[type="text"] {
   background-color: #f6f6f6;
   border: none;
