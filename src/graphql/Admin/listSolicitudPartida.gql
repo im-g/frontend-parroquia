@@ -1,0 +1,18 @@
+query allSolicitudPartidas{
+  allSolicitudPartidas{
+    edges{
+      node{
+        id
+        tipo
+        estado
+        fechaInscripcion
+        usuario{
+          nombre
+          correo
+          fechaNacimiento
+        }
+        
+      }
+    }
+  }
+}
