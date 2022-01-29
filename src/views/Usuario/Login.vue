@@ -16,9 +16,10 @@
         <form v-on:submit.prevent="iniciarSesion">
           <input
             type="text"
-            v-model="nombre"
+            v-model="nombre "
             id="login"
             class="fadeIn second"
+            required
             name="login"
             placeholder="Ingrese su nombre de usuario"
           />
@@ -28,6 +29,7 @@
               v-model="password"
               name="password"
               id="pwd"
+              required
               class="fadeIn second"
               placeholder="Ingrese su contraseña"
             />

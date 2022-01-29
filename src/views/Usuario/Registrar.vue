@@ -35,6 +35,7 @@
                 type="text"
                 v-model="nombre"
                 id="nombre"
+                required
                 class="fadeIn second"
                 name="nombre"
                 placeholder="Nombre"
@@ -42,6 +43,7 @@
               <input
                 type="text"
                 v-model="Telefono"
+                required
                 id="telefono"
                 class="fadeIn second"
                 name="telefono"
@@ -50,6 +52,7 @@
               <input
                 type="text"
                 v-model="email"
+                required
                 id="login"
                 class="fadeIn second"
                 name="login"
@@ -58,6 +61,7 @@
               <input
                 type="text"
                 v-model="password"
+                required
                 id="password"
                 class="fadeIn third"
                 name="login"
@@ -68,6 +72,7 @@
                 id="start"
                 class="fadeIn third"
                 v-model="fechaNacimiento"
+                required
                 name="login"
                 min="1950-01-01"
                 max="2020-12-31"
