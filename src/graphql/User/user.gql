@@ -3,8 +3,10 @@ query allUsuarios{
     edges{
     	node{
         nombre
+        id
         contrasena
         correo
+        rol
     	}
     }
   }

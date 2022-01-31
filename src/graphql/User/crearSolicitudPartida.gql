@@ -1,0 +1,17 @@
+mutation createSolicitudPartida(
+  $tipo: String!
+  $fecha: String!
+  $id: ID!
+) {
+  createSolicitudPartida(
+  partidaData:
+    {
+      tipo:$tipo
+      fechaInscripcion:$fecha
+      usuarioId:$id
+  }) {
+    partida {
+      id
+    } 
+  }
+}

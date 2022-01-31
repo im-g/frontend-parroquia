@@ -7,15 +7,16 @@
         <div class="contenedor">
           <img src="@/../images/parroquia.jpg" width="600" height="320" />
         </div>
+        <h1
+          class="mb-3"
+          style="color: #2b7797; font-family: 'Oswald', sans-serif"
+        >
+          Partidas Generadas
+        </h1>
 
-        <div class="filtro">
-          <div class="bucle">
-            <div
-              v-for="(item, index) in allSolicitudPartidas.edges"
-              :key="index"
-            >
-            <div v-if="item.node.estado!='FINALIZADO'">
-
+        <div class="bucle">
+          <div v-for="(item, index) in allSolicitudPartidas.edges" :key="index">
+            <div v-if="item.node.usuario.id == id">
               <p>
                 <button
                   class="btn btn-primary btn-lg btn-block"
@@ -24,44 +25,31 @@
                   aria-expanded="false"
                   aria-controls="collapseExample"
                 >
-                  {{ "Solicitante " }}{{ item.node.usuario.nombre }}
+                  {{ item.node.tipo }}
                 </button>
               </p>
               <div class="collapse" :id="index">
                 <div class="card card-body">
                   <p>{{ "Tipo solicitud " + item.node.tipo }}</p>
                   <p>{{ "Estado " + item.node.estado }}</p>
-                  <p>{{ "Fecha inscripcion " + item.node.fechaInscripcion }}</p>
-                  <textarea  :id="item.node.id" cols="30" rows="10"></textarea>
-                  <button
-                    v-on:click="respuestaSolicitud(item.node)"
-                    type="button"
-                    class="btn btn-success"
-                  >
-                    Success
-                  </button>
+                  <p>{{ "Usuario " + item.node.usuario.nombre }}</p>
+                  <p>
+                    {{ "Fecha inscripcion " + item.node.fechaInscripcion }}
+                  </p>
+                  <span v-if="item.node.respuesta== ''">SIN RESPUESTA</span>
+                  <span v-else><p>{{ "respuesta: " + item.node.respuesta }}</p></span>
+                  
                 </div>
               </div>
             </div>
-            </div>
           </div>
 
-          <div class="myfiltro">
-            <h2>Tipo de Solicitud</h2>
-            <select
-              v-on:change="filtrar($event)"
-              class="form-select"
-              aria-label="Default select example"
-            >
-              <option selected disabled>Partidas</option>
-              <option>BAUTISMO</option>
-              <option>COMUNION</option>
-              <option>CONFIRMACION</option>
-              <option>MATRIMONIO</option>
-              <option>DEFUNCION</option>
-              <option>TODOS</option>
-            </select>
-          </div>
+          <button
+            class="button1 btn-block btn btn-primary"
+            v-on:click="crearPartida"
+          >
+            Crear Nueva partida
+          </button>
         </div>
       </div>
     </div>
@@ -69,11 +57,9 @@
 </template>
 
 <script>
-console.log("id",localStorage.id)
-
 import mynav from "../mynav.vue";
 export default {
-  name: "SolicitudPartidas",
+  name: "partidasGeneradas",
 
   components: {
     mynav,
@@ -92,66 +78,9 @@ export default {
       this.id = localStorage.id;
     }
   },
-  
-
   methods: {
-    
-     respuestaSolicitud(item) {
-       
-       var updateRespuesta=document.getElementById(item.id).value.toString();
-       var tipo=item.tipo
-      console.log(tipo.toLowerCase());
-      console.log(updateRespuesta)
-
-      
-      this.$apollo
-        .mutate({
-          // Establece la mutación de crear
-          mutation: require("@/graphql/Admin/updateSolicitudPartida.gql"),
-          // Define las variables
-          variables: {
-            id: item.id,
-            tipo: tipo.toLowerCase(),
-            estado: "finalizado",
-            respuesta: updateRespuesta,
-            },
-          //línea para actualizar
-          fetchPolicy: "no-cache",
-        })
-        .then((response) => {
-          console.log("Registro de Usuario:", response.data);
-        });
-        this.$apollo
-        .mutate({
-          // Establece la mutación de crear
-          mutation: require("@/graphql/Admin/listSolicitudPartida.gql"),
-          fetchPolicy: "no-cache",
-        })
-        .then((response) => {
-          console.log(response.data.allSolicitudPartidas.edges);
-          this.allSolicitudPartidas.edges =
-            response.data.allSolicitudPartidas.edges
-        });
-         
-    },
-    filtrar(e) {
-      console.log("cambio", e.target.value);
-        
-      this.$apollo
-        .mutate({
-          // Establece la mutación de crear
-          mutation: require("@/graphql/Admin/listSolicitudPartida.gql"),
-          fetchPolicy: "no-cache",
-        })
-        .then((response) => {
-          console.log(response.data.allSolicitudPartidas.edges);
-          this.allSolicitudPartidas.edges =
-            response.data.allSolicitudPartidas.edges.filter(function (elem) {
-              console.log(elem.node.tipo);
-              console.log(e.target.value);
-              return elem.node.tipo === e.target.value;
-            });
-        });
+    crearPartida() {
+      this.$router.push({ name: "crearSolicitud" });
     },
   },
   apollo: {
@@ -193,18 +122,18 @@ a {
   justify-content: center;
   text-align: center;
 }
-.myfiltro {
-  grid-row-start: 1;
-  grid-row-end: 2;
-}
 .filtro {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
+  display: flex;
   padding: 15px;
 }
 .bucle {
-  grid-column-start: 2;
-  grid-column-end: 4;
+  border: none;
+  padding: 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+  font-size: 13px;
 }
 /* ANIMATIONS */
 
@@ -229,6 +158,26 @@ a {
     -webkit-transform: none;
     transform: none;
   }
+}
+.button1 {
+  background-color: #33FF99;
+  border: none;
+  color: black;
+  padding: 15px 80px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+} /* Green */
+button {
+  background-color: #39ace7;
+  border: none;
+  color: white;
+  padding: 15px 80px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
 }
 
 @keyframes fadeInDown {

@@ -20,10 +20,48 @@
           Sesion
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <p class="dropdown-item" href="#">Info sesion</p>
+          <p class="dropdown-item" href="#">Nombre:  {{nombre}}</p>
+          <button
+            class="buttoncerrar btn-block btn btn-primary"
+            v-on:click="cerrarSesion"
+          >Cerrar Sesión</button>
         </div>
       </li>
     </ul>
   </div>
 </nav> 
 </template>
+<script>
+export default {
+  data() {
+    return {
+      nombre: "",
+
+    };
+  },
+  mounted() {
+    if (localStorage.nombre) {
+      this.nombre = localStorage.nombre;
+    }
+  },
+  methods: {
+    cerrarSesion() {
+      localStorage.nombre="";
+      localStorage.id="";
+      this.$router.push({ name: "login" });
+    },
+  },
+}
+</script>
+<style scoped>
+.buttoncerrar {
+  border: none;
+  color: #000000;
+  padding: 12px 5px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  text-transform: uppercase;
+} /* Green */
+
+</style>

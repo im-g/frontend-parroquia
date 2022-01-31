@@ -2,27 +2,43 @@
 <template>
   <div class="wrapper fadeInDown">
     <div class="row">
-      <h1 class="mb-3" style="color:#2B7797; font-family: 'Oswald', sans-serif;">Gestión Parroquial Santisima Trinidad</h1>
+      <h1
+        class="mb-3"
+        style="color: #2b7797; font-family: 'Oswald', sans-serif"
+      >
+        Gestión Parroquial Santisima Trinidad
+      </h1>
     </div>
     <div class="row">
-    <div class="col-md">
-      <div class="contenedor">
-        <img src="@/../images/logo_parroquia.jpg" class="rounded-circle" style=" object-fit: cover;" width="320" height="320" />
-      </div>
-    </div>
-    <div class="col-md">
-      <div id="formContent">
-        <h5 class="pt-3" style="color:#1D566F; font-family: 'Oswald', sans-serif;">Inicio de sesión</h5>
-        <form v-on:submit.prevent="iniciarSesion">
-          <input
-            type="text"
-            v-model="nombre "
-            id="login"
-            class="fadeIn second"
-            required
-            name="login"
-            placeholder="Ingrese su nombre de usuario"
+      <div class="col-md">
+        <div class="contenedor">
+          <img
+            src="@/../images/logo_parroquia.jpg"
+            class="rounded-circle"
+            style="object-fit: cover"
+            width="320"
+            height="320"
           />
+        </div>
+      </div>
+      <div class="col-md">
+        <div id="formContent">
+          <h5
+            class="pt-3"
+            style="color: #1d566f; font-family: 'Oswald', sans-serif"
+          >
+            Inicio de sesión
+          </h5>
+          <form v-on:submit.prevent="iniciarSesion">
+            <input
+              type="text"
+              v-model="nombre"
+              id="login"
+              class="fadeIn second"
+              required
+              name="login"
+              placeholder="Ingrese su nombre de usuario"
+            />
             <span class="fas fa-key"></span>
             <input
               type="password"
@@ -33,18 +49,20 @@
               class="fadeIn second"
               placeholder="Ingrese su contraseña"
             />
-          <span class="fa fa-fw fa-eye password-icon show-password"></span>
+            <span class="fa fa-fw fa-eye password-icon show-password"></span>
 
-          <input type="submit" class="fadeIn fourth" value="Iniciar sesión" />
-          <a type="submit" class="fadeIn fourth" href="#">¿olvidaste tu contraseña?</a>
-        </form>
+            <input type="submit" class="fadeIn fourth" value="Iniciar sesión" />
+            <a type="submit" class="fadeIn fourth" href="#"
+              >¿olvidaste tu contraseña?</a
+            >
+          </form>
 
-        <!-- Remind Passowrd TODO-->
-        <div id="formFooter">
-          <a class="underlineHover" href="registrar">Registrarse</a>
+          <!-- Remind Passowrd TODO-->
+          <div id="formFooter">
+            <a class="underlineHover" href="registrar">Registrarse</a>
+          </div>
         </div>
       </div>
-    </div>
     </div>
   </div>
 </template>
@@ -58,22 +76,33 @@ export default {
       allUsuarios: Object,
       nombre: "",
       password: "",
+      id: "",
     };
+  },
+  mounted() {
+    this.nombre = localStorage.nombre;
+    this.id = localStorage.id;
   },
 
   methods: {
     iniciarSesion() {
       for (let index = 0; index < this.allUsuarios.edges.length; index++) {
         const element = this.allUsuarios.edges[index].node;
-        if (
-          this.password == element.contrasena &&
-          (this.nombre == element.nombre || this.nombre == element.correo)
-        ) {
-          console.log("Ingreso a sistema");
-          this.$router.push({ name: "parroquia" });
-          break;
+        if (this.nombre == element.nombre || this.nombre == element.correo) {
+          if (this.password == element.contrasena) {
+            console.log("Rol ", element.rol);
+            localStorage.nombre = element.nombre;
+            localStorage.id = element.id;
+            if (element.rol == "USER") {
+              this.$router.push({ name: "partidasGeneradas" });
+            } else {
+              this.$router.push({ name: "solicitudesPartidas" });
+            }
+            console.log("Ingreso a sistema");
+            break;
+          }
         } else {
-          console.log("NO ingreso a sistema");
+          console.log("No entro al sistema");
         }
       }
     },
@@ -243,7 +272,7 @@ input[type="reset"]:active {
   -ms-transform: scale(0.95);
   transform: scale(0.95);
 }
-input[type="password"]{
+input[type="password"] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;

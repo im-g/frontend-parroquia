@@ -1,134 +1,105 @@
 <template>
   <div>
-    <div class="wrapper fadeInDown">
-      <div class="row">
-        <h1
-          class="mb-3"
-          style="color: #2b7797; font-family: 'Oswald', sans-serif"
-        >
-          Gestión Parroquial Santisima Trinidad
-        </h1>
-      </div>
+    <mynav></mynav>
 
-      <div class="row">
-        <div class="col-md">
-          <div class="contenedor">
-            <img
-              src="@/../images/logo_parroquia.jpg"
-              class="rounded-circle"
-              style="object-fit: cover"
-              width="320"
-              height="320"
-            />
-          </div>
+    <div class="wrapper fadeInDown">
+      <div class="contenedor-filtro">
+        <div class="contenedor">
+          <img src="@/../images/parroquia.jpg" width="600" height="320" />
         </div>
-        <div class="col-md">
-          <div id="formContent">
-            <h5
-              class="pt-3"
+          <div  id="formContent">
+            <h5 class="pt-3"
               style="color: #1d566f; font-family: 'Oswald', sans-serif"
             >
-              Registrarse
+              Crear Solicitud            
             </h5>
-            <form v-on:submit.prevent="Registrarme">
-              <input
-                type="text"
-                v-model="nombre"
-                id="nombre"
-                required
-                class="fadeIn second"
-                name="nombre"
-                placeholder="Nombre"
-              />
-              <input
-                type="number"
-                v-model="Telefono"
-                required
-                id="telefono"
-                class="fadeIn second"
-                name="telefono"
-                placeholder="telefono"
-              />
-              <input
-                type="text"
-                v-model="email"
-                required
-                id="login"
-                class="fadeIn second"
-                name="login"
-                placeholder="email"
-              />
-              <input
-                type="text"
-                v-model="password"
-                required
-                id="password"
-                class="fadeIn third"
-                name="login"
-                placeholder="contraseña"
-              />
+
+            <form v-on:submit.prevent="crearSolicitud">
+              <select
+              tipe="select"              
+              class="form-select"
+              v-model="tipo"
+              aria-label="Default select example"
+              id="tipopartida"
+              >
+                <option disabled >Seleccione</option>
+                <option>bautismo</option>
+                <option>comunión</option>
+                <option>confirmación</option>
+                <option>matromonio</option>
+                <option>defunción</option>              
+              </select>
+             
               <input
                 type="date"
                 id="start"
                 class="fadeIn third"
-                v-model="fechaNacimiento"
+                v-model="fechaInscripcion"
                 required
-                name="login"
+                name="fecha"
                 min="1950-01-01"
-                max="2020-12-31"
+                max="2022-01-31"
               />
-              <input type="submit" class="fadeIn fourth" value="Registrarme" />
+              <input type="submit" class="fadeIn fourth" value="Crear" />
             </form>
           </div>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
+
+
 <script>
+import mynav from "../mynav.vue";
 export default {
-  name: "Registrar",
-  components: {},
+
+  name: "crearSolicitud",
+  components: {mynav},
   data() {
     return {
-      email: "",
-      password: "",
-      nombre: "",
-      Telefono: "",
-      fechaNacimiento: "",
+      tipo : "",
+      fechaInscripcion: "",
+      usuarioId: "",
+     
     };
   },
+  mounted() {
+    if (localStorage.id) {
+      this.usuarioId = localStorage.id;
+    }
+  },
   methods: {
-    Registrarme() {
-      console.log("email", this.email);
-      console.log("p", this.password);
-      console.log("nombre ", this.nombre);
-      console.log("tel", this.Telefono);
-      console.log("feNa", this.fechaNacimiento);
+    crearSolicitud() {
+      var updateRespuesta=document.getElementById("tipopartida").value.toString().toLowerCase();
+      
+      this.tipo=updateRespuesta;
+      console.log("fecha", this.fechaInscripcion);
+      console.log("usuario ", this.usuarioId);
+      console.log(this.tipo);
       this.$apollo
         .mutate({
           // Establece la mutación de crear
-          mutation: require("@/graphql/User/addUser.gql"),
+          mutation: require("@/graphql/User/crearSolicitudPartida.gql"),
           // Define las variables
           variables: {
-            nombre: this.nombre,
-            telefono: this.Telefono,
-            email: this.email,
-            contrasena: this.password,
-            fechanac: this.fechaNacimiento,
+            tipo: this.tipo,
+            fecha: this.fechaInscripcion,
+            id: this.usuarioId,
           },
           //línea para actualizar
           fetchPolicy: "no-cache",
         })
         .then((response) => {
-          console.log("Registro de Usuario:", response.data);
-          this.$router.push({ name: "login" });
+          console.log("Registro de crear Solicitud de Partida:", response.data);
+          this.$router.push({ name: "partidasGeneradas" });
         });
     },
   },
 };
 </script>
+
+#estilos
 <style scoped>
 .contenedor {
   position: relative;
@@ -160,6 +131,45 @@ h2 {
   margin: 40px 8px 10px 8px;
   color: #cccccc;
 }
+.form-select{
+  display: block;
+  font-size: 16px;
+  font-family: 'Verdana', sans-serif;
+  font-weight: 400;
+  color: #444;
+  line-height: 1.3;
+  padding: .4em 1.4em .3em .8em;
+  width: 340px;
+  max-width: 100%; 
+  box-sizing: border-box;
+ margin: 10px auto;
+  border: 1px solid #aaa;
+  box-shadow: 0 1px 0 1px rgba(0,0,0,.03);
+  border-radius: .3em;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  background-color: #fff;
+  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
+    linear-gradient(to bottom, #ffffff 0%,#f7f7f7 100%);
+  background-repeat: no-repeat, repeat;
+  background-position: right .7em top 50%, 0 0;
+  background-size: .65em auto, 100%;
+}
+.form-select::-ms-expand {
+  display: none;
+}
+
+.form-select:focus {
+  border-color: #aaa;
+  box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
+  box-shadow: 0 0 0 3px -moz-mac-focusring;
+  color: #222; 
+  outline: none;
+}
+.form-select option {
+  font-weight:normal;
+}
 
 /* STRUCTURE */
 
@@ -178,8 +188,8 @@ h2 {
   border-radius: 10px 10px 10px 10px;
   background: #fff;
   padding: 30px;
-  width: 90%;
-  max-width: 450px;
+  width: 95%;
+  max-width: 800px;
   position: relative;
   padding: 0px;
   -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
@@ -248,26 +258,7 @@ input[type="reset"]:active {
   -ms-transform: scale(0.95);
   transform: scale(0.95);
 }
-input[type="number"]{
-  background-color: #f6f6f6;
-  border: none;
-  color: #0d0d0d;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 5px;
-  width: 85%;
-  border: 2px solid #f6f6f6;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
-}
+
 input[type="date"]{
   background-color: #f6f6f6;
   border: none;
@@ -278,7 +269,7 @@ input[type="date"]{
   text-align: center;
   text-decoration: none;
   margin: 5px;
-  width: 85%;
+  width: 60%;
   border: 2px solid #f6f6f6;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
@@ -308,6 +299,7 @@ input[type="text"] {
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
 }
+
 
 input[type="text"]:focus {
   background-color: #fff;
