@@ -1,6 +1,5 @@
 <template>
   <div>
-    <mynav></mynav>
 
     <div class="wrapper fadeInDown">
       <div class="contenedor-filtro">
@@ -71,12 +70,10 @@
 <script>
 console.log("id",localStorage.id)
 
-import mynav from "../mynav.vue";
 export default {
   name: "SolicitudPartidas",
 
   components: {
-    mynav,
   },
   data() {
     return {

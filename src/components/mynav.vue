@@ -21,7 +21,7 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <p class="dropdown-item" href="#">Nombre:  {{nombre}}</p>
-          <button
+          <button 
             class="buttoncerrar btn-block btn btn-primary"
             v-on:click="cerrarSesion"
           >Cerrar Sesión</button>
@@ -33,6 +33,7 @@
 </template>
 <script>
 export default {
+  name: "navBar",
   data() {
     return {
       nombre: "",
@@ -43,11 +44,16 @@ export default {
     if (localStorage.nombre) {
       this.nombre = localStorage.nombre;
     }
+    else{
+      this.nombre = "";
+      localStorage.id="";
+    }
   },
   methods: {
     cerrarSesion() {
       localStorage.nombre="";
       localStorage.id="";
+      console.log("cerrando sesión")
       this.$router.push({ name: "login" });
     },
   },

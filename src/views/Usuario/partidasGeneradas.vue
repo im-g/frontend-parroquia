@@ -1,7 +1,5 @@
 <template>
   <div>
-    <mynav></mynav>
-
     <div class="wrapper fadeInDown">
       <div class="contenedor-filtro">
         <div class="contenedor">
@@ -57,12 +55,10 @@
 </template>
 
 <script>
-import mynav from "../mynav.vue";
 export default {
   name: "partidasGeneradas",
 
   components: {
-    mynav,
   },
   data() {
     return {
@@ -88,6 +84,7 @@ export default {
       // Consulta
       query: require("@/graphql/Admin/listSolicitudPartida.gql"),
       // Asigna el error a la variable definida en data
+      fetchPolicy: "no-cache",
       error(error) {
         this.error = JSON.stringify(error.message);
       },

@@ -35,8 +35,10 @@
                 type="text"
                 v-model="nombre"
                 id="nombre"
+                minlength="2"
                 required
                 class="fadeIn second"
+                for="validationDefaultUsername"
                 name="nombre"
                 placeholder="Nombre"
               />
@@ -51,16 +53,20 @@
               />
               <input
                 type="text"
+                id="email"
                 v-model="email"
+                pattern="[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{1,5}"
+                minlength="5"
                 required
-                id="login"
-                class="fadeIn second"
+                class="fadeIn third"
                 name="login"
                 placeholder="email"
               />
               <input
-                type="text"
+                type="password"
                 v-model="password"
+                maxlength="15" 
+                minlength="6"
                 required
                 id="password"
                 class="fadeIn third"
@@ -150,6 +156,27 @@ a {
   text-decoration: none;
   font-weight: 400;
 }
+input[type="password"] {
+  background-color: #f6f6f6;
+  border: none;
+  color: #0d0d0d;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 5px;
+  width: 85%;
+  border: 2px solid #f6f6f6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
+
 
 h2 {
   text-align: center;

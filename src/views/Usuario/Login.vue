@@ -79,6 +79,7 @@ export default {
       id: "",
     };
   },
+  
   mounted() {
     this.nombre = localStorage.nombre;
     this.id = localStorage.id;
@@ -86,6 +87,7 @@ export default {
 
   methods: {
     iniciarSesion() {
+      console.log("data",this.allUsuarios.edges);
       for (let index = 0; index < this.allUsuarios.edges.length; index++) {
         const element = this.allUsuarios.edges[index].node;
         if (this.nombre == element.nombre || this.nombre == element.correo) {
@@ -112,6 +114,7 @@ export default {
       // Consulta
       query: require("@/graphql/User/user.gql"),
       // Asigna el error a la variable definida en data
+      fetchPolicy: "no-cache",
       error(error) {
         this.error = JSON.stringify(error.message);
       },

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <mynav></mynav>
 
     <div class="wrapper fadeInDown">
       <div class="contenedor-filtro">
@@ -26,7 +25,7 @@
                 <option>bautismo</option>
                 <option>comunión</option>
                 <option>confirmación</option>
-                <option>matromonio</option>
+                <option>matrimonio</option>
                 <option>defunción</option>              
               </select>
              
@@ -51,11 +50,9 @@
 
 
 <script>
-import mynav from "../mynav.vue";
 export default {
 
   name: "crearSolicitud",
-  components: {mynav},
   data() {
     return {
       tipo : "",
