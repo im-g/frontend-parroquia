@@ -20,8 +20,8 @@
           Sesion
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <p class="dropdown-item" href="#">Nombre:  {{nombre}}</p>
-          <button :disabled="!nombre"
+          <p class="dropdown-item" >Nombre:  {{this.nombre}}</p>
+          <button :disabled="!this.nombre"
             class="buttoncerrar btn-block btn btn-primary"
             v-on:click="cerrarSesion"
           >Cerrar Sesión</button>
@@ -42,6 +42,7 @@ export default {
   },
   mounted() {
     if (localStorage.nombre) {
+      console.log("Munted")
       this.nombre = localStorage.nombre;
     }
     else{

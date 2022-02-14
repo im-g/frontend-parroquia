@@ -90,7 +90,7 @@ export default {
       console.log("data",this.allUsuarios.edges);
       for (let index = 0; index < this.allUsuarios.edges.length; index++) {
         const element = this.allUsuarios.edges[index].node;
-        if (this.nombre == element.nombre || this.nombre == element.correo) {
+        if (this.nombre == element.nombre ) {
           if (this.password == element.contrasena) {
             console.log("Rol ", element.rol);
             localStorage.nombre = element.nombre;
@@ -100,11 +100,17 @@ export default {
             } else {
               this.$router.push({ name: "solicitudesPartidas" });
             }
+            this.$swal("Bienvenido",this.nombre,"success");
             console.log("Ingreso a sistema");
             break;
+          }else{
+            this.$swal("Error","Contraseña incorrecta","error"); 
+            console.log("No entro al sistema");
           }
         } else {
+          this.$swal("Error","Nombre de usuario o email no existe","error"); 
           console.log("No entro al sistema");
+          
         }
       }
     },

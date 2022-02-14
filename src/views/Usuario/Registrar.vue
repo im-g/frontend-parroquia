@@ -129,6 +129,7 @@ export default {
         })
         .then((response) => {
           console.log("Registro de Usuario:", response.data);
+          this.$swal("Usuario Creado","Correctamente","success");
           this.$router.push({ name: "login" });
         });
     },

@@ -22,11 +22,11 @@
               id="tipopartida"
               >
                 <option disabled >Seleccione</option>
-                <option>bautismo</option>
-                <option>comunión</option>
-                <option>confirmación</option>
-                <option>matrimonio</option>
-                <option>defunción</option>              
+                <option>Bautismo</option>
+                <option>Comunión</option>
+                <option>Confirmación</option>
+                <option>Matrimonio</option>
+                <option>Defunción</option>              
               </select>
              
               <input
@@ -88,6 +88,7 @@ export default {
           fetchPolicy: "no-cache",
         })
         .then((response) => {
+          this.$swal("Correcto","Partida creada correctamente","success");
           console.log("Registro de crear Solicitud de Partida:", response.data);
           this.$router.push({ name: "partidasGeneradas" });
         });
