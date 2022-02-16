@@ -22,11 +22,11 @@
               id="tipopartida"
               >
                 <option disabled >Seleccione</option>
-                <option>Bautismo</option>
-                <option>Comunión</option>
-                <option>Confirmación</option>
-                <option>Matrimonio</option>
-                <option>Defunción</option>              
+                <option>bautismo</option>
+                <option>comunión</option>
+                <option>confirmación</option>
+                <option>matrimonio</option>
+                <option>defunción</option>              
               </select>
              
               <input
