@@ -3,31 +3,48 @@
     <div class="contenedor">
       <img src="@/../images/parroquia.jpg" width="600" height="320" />
     </div>
-    <h5 class="pt-3" style="color: #1d566f; font-family: 'Oswald', sans-serif">
-      Crear Solicitud
-    </h5>
-    <div id="formContent" class="contenedor">
-      <form v-on:submit.prevent="solicitarCita">
-          <input
-          type = "time"
-          v-model="horaSolicitud"
-          required
-          max="19:30:00" 
-          min="07:00:00" 
-          step="1"
-          />
-        <input
-          type="date"
-          id="start"
-          class="fadeIn third"
-          v-model="fechaSolicitud"
-          required
-          name="login"
-          min="2022-02-16"
-          max="2022-12-31"
-        />
-        <input type="submit" class="fadeIn fourth" value="Solicitar" />
-      </form>
+    <div class="row">
+      <div class="col-md">
+        <h5
+          class="pt-3"
+          style="color: #1d566f; font-family: 'Oswald', sans-serif"
+        >
+          Crear Solicitud
+        </h5>
+        <div id="formContent" class="contenedor">
+          <form v-on:submit.prevent="solicitarCita">
+            <input
+              type="time"
+              v-model="horaSolicitud"
+              required
+              max="19:30:00"
+              min="07:00:00"
+              step="1"
+            />
+            <input
+              type="date"
+              id="start"
+              class="fadeIn third"
+              v-model="fechaSolicitud"
+              required
+              name="login"
+              min="2022-02-16"
+              max="2022-12-31"
+            />
+            <input type="submit" class="fadeIn fourth" value="Solicitar" />
+          </form>
+        </div>
+      </div>
+      <div class="col-md">
+          <h5
+          class="pt-3"
+          style="color: #1d566f; font-family: 'Oswald', sans-serif"
+        >
+          Solicitudes En proceso
+          
+        </h5>
+        <input type="submit" class="fadeIn fourth" value="Información Solicitud"/>
+      </div>
     </div>
   </div>
 </template>
@@ -35,18 +52,17 @@
 export default {
   name: "solicitarCita",
   data() {
-      return{
-      horaSolicitud:"",
-      fechaSolicitud:"",
-      };
+    return {
+      horaSolicitud: "",
+      fechaSolicitud: "",
+    };
   },
-   methods: {
-       solicitarCita(){
-        console.log("hora", this.horaSolicitud);
-        console.log("fecha", this.fechaSolicitud);
-       }
-
-   }
+  methods: {
+    solicitarCita() {
+      console.log("hora", this.horaSolicitud);
+      console.log("fecha", this.fechaSolicitud);
+    },
+  },
 };
 </script>
 <style scoped>
