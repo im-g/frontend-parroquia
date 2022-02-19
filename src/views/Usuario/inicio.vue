@@ -4,52 +4,67 @@
       <img src="@/../images/parroquia.jpg" width="600" height="320" />
     </div>
     <div class="row">
-      <div class="col-md " >
+      <div class="col-md">
         <h5
           class="pt-3"
           style="color: #1d566f; font-family: 'Oswald', sans-serif"
         >
-          Crear Solicitud
+          Festividades
         </h5>
-        <div id="formContent" class="contenedor">
-          <form v-on:submit.prevent="solicitarCita">
-            <input
-              type="time"
-              v-model="horaSolicitud"
-              required
-              max="19:30:00"
-              min="07:00:00"
-              step="1"
-            />
-            <input
-              type="date"
-              id="start"
-              class="fadeIn third"
-              v-model="fechaSolicitud"
-              required
-              name="login"
-              min="2022-02-16"
-              max="2022-12-31"
-            />
-            <input type="submit" class="fadeIn fourth" value="Solicitar" />
-          </form>
-        </div>
-      </div>
+        <div class="row">
       <div class="col-md">
-          <h5
+        <h5
           class="pt-3"
           style="color: #1d566f; font-family: 'Oswald', sans-serif"
         >
-          Solicitudes En proces     
+          col 1
         </h5>
-        <input type="submit" class="fadeIn fourth" value="Información Solicitud"/>
+        <div class="contenedor">
+      <img src="@/../images/navidad.jpg" width="600" height="320" />
+    </div>
+      </div>
+      <div class="col-md">
+        <h5
+          class="pt-3"
+          style="color: #1d566f; font-family: 'Oswald', sans-serif"
+        >
+          Col 2
+        </h5>
+        <div class="contenedor">
+      <img src="@/../images/semana santa.jpg" width="600" height="320" />
+    </div>
+      </div>
+      <div class="col-md">
+        <h5
+          class="pt-3"
+          style="color: #1d566f; font-family: 'Oswald', sans-serif"
+        >
+          Solicitudes En proceso
+        </h5>
+        <input
+          type="submit"
+          class="fadeIn fourth"
+          value="Información Solicitud"
+        />
       </div>
     </div>
+      </div>
+
+      <div class="col-md">
+        <h5
+          class="pt-3"
+          style="color: #1d566f; font-family: 'Oswald', sans-serif"
+        >
+          Horario de misas
+        </h5>
+      </div>
+    </div>
+    
   </div>
 </template>
 <script>
 export default {
-  name: "solicitarCita",
+  name: "inicio",
   data() {
     return {
       horaSolicitud: "",

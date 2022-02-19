@@ -2,9 +2,7 @@
   <div>
   <mynav></mynav>
   <router-view />
-  </div>
-  
-  
+  </div>  
 </template>
 
 <script>

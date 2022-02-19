@@ -48,6 +48,7 @@
                 required
                 id="telefono"
                 class="fadeIn second"
+                  
                 name="telefono"
                 placeholder="telefono"
               />
