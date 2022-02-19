@@ -7,7 +7,7 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Eucaristias<span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="#">Eucaristías<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/solicitarCita">Solicitudes</a>
@@ -17,7 +17,7 @@
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Sesion
+          Sesión
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <p class="dropdown-item" >Nombre:  {{this.nombre}}</p>

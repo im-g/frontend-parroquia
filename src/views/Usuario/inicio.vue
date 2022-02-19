@@ -1,7 +1,16 @@
 <template>
   <div class="wrapper fadeInDown">
     <div class="contenedor">
-      <img src="@/../images/parroquia.jpg" width="600" height="320" />
+
+      <div class="jumbotron">
+
+        <header-comp></header-comp>
+        <nav-bar></nav-bar>
+        <card-info></card-info>
+
+        <footer-comp></footer-comp>
+      </div>
+
     </div>
     <div class="row">
       <div class="col-md">
@@ -63,7 +72,20 @@
   </div>
 </template>
 <script>
+
+import HeaderComp from '../../components/header.vue'
+import FooterComp from '../../components/footer.vue'
+import NavBar from '../../components/navBar.vue'
+import CardInfo from '../../components/Cards/cardInfo.vue'
+
 export default {
+  components: {
+
+    HeaderComp,
+    FooterComp,
+    NavBar,
+    CardInfo,
+  },
   name: "inicio",
   data() {
     return {
