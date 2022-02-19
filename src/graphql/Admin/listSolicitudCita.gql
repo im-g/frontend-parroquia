@@ -8,11 +8,14 @@ query allSolicitudes{
         estado
         usuario {
           nombre
+          id
         }
         templo{
+          id
           nombre
         }
         servicio{
+          id
           nombreServicio
         }
       }

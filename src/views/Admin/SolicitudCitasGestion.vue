@@ -5,12 +5,11 @@
         <div class="contenedor">
           <img src="@/../images/parroquia.jpg" width="600" height="320" />
         </div>
-
         <div class="filtro">
           <div class="bucle">
             <div v-if="datatime != 'nodata'">
-              <div v-for="(item, index) in allSolicitudes.edges" :key="index">
-                <div v-if="item.node.estado == 'SEPARADO'">
+            <div v-for="(item, index) in allSolicitudes.edges" :key="index">
+              <div v-if="item.node.estado == 'SOLICITADO'">
                 <p>
                   <button
                     class="btn btn-primary btn-lg btn-block"
@@ -21,7 +20,7 @@
                   >
                     <p>
                       {{ "Hora Agenda " + item.node.hora }}{{ " / Solicitante "
-                      }}{{ item.node.usuario.nombre }}
+                      }}{{ item.node.usuario.nombre}}
                     </p>
                   </button>
                 </p>
@@ -39,18 +38,35 @@
                     <p>{{ "Templo agendado  " + item.node.templo.nombre }}</p>
                     <p>{{ "Fecha agendada " + item.node.fecha }}</p>
                     <p>{{ "Hora agendada " + item.node.hora }}</p>
+                    <button
+                      v-on:click="respuestaSolicitud(item.node, 'separado')"
+                      type="button"
+                      class="btn btn-success"
+                    >
+                      Aprobado
+                    </button>
+                    <button
+                      v-on:click="respuestaSolicitud(item.node, 'cancelado')"
+                      type="button"
+                      class="btn btn-danger"
+                    >
+                      Desaprobado
+                    </button>
                   </div>
                 </div>
-                </div>
+              
               </div>
+            
+            </div>
+            
             </div>
             <div v-else>
-                <h2>Seleccionar fecha de agenda</h2>
+                <h2>Seleccionar fecha de Solicitudes</h2>
             </div>
           </div>
 
           <div class="myfiltro">
-            <h2>Fecha Agenda</h2>
+            <h2>Fecha Solicitudes</h2>
             <input
               type="date"
               v-on:change="filtrar($event)"
@@ -68,7 +84,7 @@
 console.log("id", localStorage.id);
 
 export default {
-  name: "SolicitudCitas",
+  name: "SolicitudCitasGestion",
 
   components: {},
   data() {
@@ -88,6 +104,46 @@ export default {
   },
 
   methods: {
+    respuestaSolicitud(item, rta) {
+      console.log(rta);
+      console.log(item.id);
+      console.log(item.hora);
+      console.log(item.fecha);
+      console.log(item.usuario.id);
+      console.log(item.templo.id);
+      console.log(item.servicio.id);
+
+      this.$apollo
+        .mutate({
+          // Establece la mutación de crear
+          mutation: require("@/graphql/Admin/updateSolicitudCita.gql"),
+          // Define las variables
+          variables: {
+            id: item.id,
+            hora: item.hora,
+            fecha: item.fecha,
+            estado: rta,
+            usuarioId: item.usuario.id,
+            temploId: item.templo.id,
+            servicioId: item.servicio.id,
+          },
+          //línea para actualizar
+          fetchPolicy: "no-cache",
+        })
+        .then((response) => {
+          console.log("Registro de Usuario:", response.data);
+        });
+      this.$apollo
+        .mutate({
+          // Establece la mutación de crear
+          mutation: require("@/graphql/Admin/listSolicitudCita.gql"),
+          fetchPolicy: "no-cache",
+        })
+        .then((response) => {
+          console.log(response.data.allSolicitudes.edges);
+          this.allSolicitudes.edges = response.data.allSolicitudes.edges;
+        });
+    },
     filtrar(e) {
       console.log("cambio", e.target.value);
       this.datatime = e.target.value;
