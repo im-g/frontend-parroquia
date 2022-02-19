@@ -1,0 +1,21 @@
+query allSolicitudes{
+  allSolicitudes {
+    edges {
+      node {
+        id
+        hora
+        fecha
+        estado
+        usuario {
+          nombre
+        }
+        templo{
+          nombre
+        }
+        servicio{
+          nombreServicio
+        }
+      }
+    }
+  }
+}
