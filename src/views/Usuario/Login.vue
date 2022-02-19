@@ -32,12 +32,12 @@
           <form v-on:submit.prevent="iniciarSesion">
             <input
               type="text"
-              v-model="nombre"
+              v-model="cedula"
               id="login"
               class="fadeIn second"
               required
               name="login"
-              placeholder="Ingrese su nombre de usuario"
+              placeholder="Ingrese su número de cédula"
             />
             <span class="fas fa-key"></span>
             <input
@@ -74,7 +74,7 @@ export default {
   data() {
     return {
       allUsuarios: Object,
-      nombre: "",
+      cedula: "",
       password: "",
       id: "",
     };
@@ -90,27 +90,27 @@ export default {
       console.log("data",this.allUsuarios.edges);
       for (let index = 0; index < this.allUsuarios.edges.length; index++) {
         const element = this.allUsuarios.edges[index].node;
-        if (this.nombre == element.nombre ) {
+        if (this.cedula == element.cedula) {
           if (this.password == element.contrasena) {
             console.log("Rol ", element.rol);
             localStorage.nombre = element.nombre;
             localStorage.id = element.id;
             if (element.rol == "USER") {
-              this.$router.push({ name: "partidasGeneradas" });
+              this.$router.push({ name: "inicio" });
             } else {
               this.$router.push({ name: "solicitudesPartidas" });
             }
-            this.$swal("Bienvenido",this.nombre,"success");
+            this.$swal("Bienvenido",element.nombre,"success");
             console.log("Ingreso a sistema");
             break;
           }else{
             this.$swal("Error","Contraseña incorrecta","error"); 
             console.log("No entro al sistema");
+            break;
           }
         } else {
-          this.$swal("Error","Nombre de usuario o email no existe","error"); 
+          this.$swal("Error","Número de cédula no resgistrada en el sistema","error"); 
           console.log("No entro al sistema");
-          
         }
       }
     },
@@ -122,6 +122,7 @@ export default {
       // Asigna el error a la variable definida en data
       fetchPolicy: "no-cache",
       error(error) {
+        console.log("Consulra");
         this.error = JSON.stringify(error.message);
       },
     },
