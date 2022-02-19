@@ -18,8 +18,8 @@ base: process.env.BASE_URL,
     },
     {
       path: "/",
-      name: "login",
-      component: () => import("@/views/Usuario/Login.vue"),
+      name: "inicio",
+      component: () => import("@/views/Usuario/inicio.vue"),
     },
     {
       path: "/solicitudesPartidas",
