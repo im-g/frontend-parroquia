@@ -8,11 +8,9 @@
 
         <div class="filtro">
           <div class="bucle">
-            <div
-              v-for="(item, index) in allSolicitudPartidas.edges"
-              :key="index"
-            >
-              <div v-if="item.node.estado != 'FINALIZADO'">
+            <div v-if="datatime != 'nodata'">
+              <div v-for="(item, index) in allSolicitudes.edges" :key="index">
+                <div v-if="item.node.estado == 'SEPARADO'">
                 <p>
                   <button
                     class="btn btn-primary btn-lg btn-block"
@@ -21,45 +19,44 @@
                     aria-expanded="false"
                     aria-controls="collapseExample"
                   >
-                    {{ "Solicitante " }}{{ item.node.usuario.nombre }}
+                    <p>
+                      {{ "Hora Agenda " + item.node.hora }}{{ " / Solicitante "
+                      }}{{ item.node.usuario.nombre }}
+                    </p>
                   </button>
                 </p>
                 <div class="collapse" :id="index">
                   <div class="card card-body">
-                    <p>{{ "Tipo solicitud " + item.node.tipo }}</p>
+                    <p>
+                      {{
+                        "Tipo solicitud " + item.node.servicio.nombreServicio
+                      }}
+                    </p>
                     <p>{{ "Estado " + item.node.estado }}</p>
                     <p>
-                      {{ "Fecha inscripcion " + item.node.fechaInscripcion }}
+                      {{ "Nombre solicitante " + item.node.usuario.nombre }}
                     </p>
-                    <textarea :id="item.node.id" cols="30" rows="10"></textarea>
-                    <button
-                      v-on:click="respuestaSolicitud(item.node)"
-                      type="button"
-                      class="btn btn-success"
-                    >
-                      Responder
-                    </button>
+                    <p>{{ "Templo agendado  " + item.node.templo.nombre }}</p>
+                    <p>{{ "Fecha agendada " + item.node.fecha }}</p>
+                    <p>{{ "Hora agendada " + item.node.hora }}</p>
                   </div>
                 </div>
+                </div>
               </div>
+            </div>
+            <div v-else>
+                <h2>Seleccionar fecha de agenda</h2>
             </div>
           </div>
 
           <div class="myfiltro">
-            <h2>Tipo de Solicitud</h2>
-            <select
+            <h2>Fecha Agenda</h2>
+            <input
+              type="date"
               v-on:change="filtrar($event)"
-              class="form-select"
-              aria-label="Default select example"
-            >
-              <option selected disabled>Partidas</option>
-              <option>BAUTISMO</option>
-              <option>COMUNION</option>
-              <option>CONFIRMACION</option>
-              <option>MATRIMONIO</option>
-              <option>DEFUNCION</option>
-              <option>TODOS</option>
-            </select>
+              id="start"
+              name="trip-start"
+            />
           </div>
         </div>
       </div>
@@ -71,16 +68,17 @@
 console.log("id", localStorage.id);
 
 export default {
-  name: "SolicitudPartidas",
+  name: "SolicitudCitas",
 
   components: {},
   data() {
     return {
-      allSolicitudPartidas: Object,
+      allSolicitudes: Object,
       id: "",
       nombre: "",
       password: "",
       selected: "",
+      datatime: "nodata",
     };
   },
   mounted() {
@@ -90,65 +88,31 @@ export default {
   },
 
   methods: {
-    respuestaSolicitud(item) {
-      var updateRespuesta = document.getElementById(item.id).value.toString();
-      var tipo = item.tipo;
-      console.log(tipo.toLowerCase());
-      console.log(updateRespuesta);
-
-      this.$apollo
-        .mutate({
-          // Establece la mutación de crear
-          mutation: require("@/graphql/Admin/updateSolicitudPartida.gql"),
-          // Define las variables
-          variables: {
-            id: item.id,
-            tipo: tipo.toLowerCase(),
-            estado: "finalizado",
-            respuesta: updateRespuesta,
-          },
-          //línea para actualizar
-          fetchPolicy: "no-cache",
-        })
-        .then((response) => {
-          console.log("Registro de Usuario:", response.data);
-        });
-      this.$apollo
-        .mutate({
-          // Establece la mutación de crear
-          mutation: require("@/graphql/Admin/listSolicitudPartida.gql"),
-          fetchPolicy: "no-cache",
-        })
-        .then((response) => {
-          console.log(response.data.allSolicitudPartidas.edges);
-          this.allSolicitudPartidas.edges =
-            response.data.allSolicitudPartidas.edges;
-        });
-    },
     filtrar(e) {
       console.log("cambio", e.target.value);
-
+      this.datatime = e.target.value;
       this.$apollo
         .mutate({
           // Establece la mutación de crear
-          mutation: require("@/graphql/Admin/listSolicitudPartida.gql"),
+          mutation: require("@/graphql/Admin/listSolicitudCita.gql"),
           fetchPolicy: "no-cache",
         })
         .then((response) => {
-          console.log(response.data.allSolicitudPartidas.edges);
-          this.allSolicitudPartidas.edges =
-            response.data.allSolicitudPartidas.edges.filter(function (elem) {
-              console.log(elem.node.tipo);
+          console.log(response.data.allSolicitudes.edges);
+          this.allSolicitudes.edges = response.data.allSolicitudes.edges.filter(
+            function (elem) {
+              console.log(elem.node.fecha);
               console.log(e.target.value);
-              return elem.node.tipo === e.target.value;
-            });
+              return elem.node.fecha === e.target.value;
+            }
+          );
         });
     },
   },
   apollo: {
-    allSolicitudPartidas: {
+    allSolicitudes: {
       // Consulta
-      query: require("@/graphql/Admin/listSolicitudPartida.gql"),
+      query: require("@/graphql/Admin/listSolicitudCita.gql"),
       // Asigna el error a la variable definida en data
       error(error) {
         this.error = JSON.stringify(error.message);
