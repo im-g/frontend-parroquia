@@ -5,77 +5,19 @@
       <div class="jumbotron">
 
         <header-comp></header-comp>
-        <nav-bar></nav-bar>
+  
         <card-info></card-info>
 
         <footer-comp></footer-comp>
-      </div>
-
-    </div>
-    <div class="row">
-      <div class="col-md">
-        <h5
-          class="pt-3"
-          style="color: #1d566f; font-family: 'Oswald', sans-serif"
-        >
-          Festividades
-        </h5>
-        <div class="row">
-      <div class="col-md">
-        <h5
-          class="pt-3"
-          style="color: #1d566f; font-family: 'Oswald', sans-serif"
-        >
-          col 1
-        </h5>
-        <div class="contenedor">
-      <img src="@/../images/navidad.jpg" width="600" height="320" />
-    </div>
-      </div>
-      <div class="col-md">
-        <h5
-          class="pt-3"
-          style="color: #1d566f; font-family: 'Oswald', sans-serif"
-        >
-          Col 2
-        </h5>
-        <div class="contenedor">
-      <img src="@/../images/semana santa.jpg" width="600" height="320" />
-    </div>
-      </div>
-      <div class="col-md">
-        <h5
-          class="pt-3"
-          style="color: #1d566f; font-family: 'Oswald', sans-serif"
-        >
-          Solicitudes En proceso
-        </h5>
-        <input
-          type="submit"
-          class="fadeIn fourth"
-          value="Información Solicitud"
-        />
+        
       </div>
     </div>
-      </div>
-
-      <div class="col-md">
-        <h5
-          class="pt-3"
-          style="color: #1d566f; font-family: 'Oswald', sans-serif"
-        >
-          Horario de misas
-        </h5>
-      </div>
-    </div>
-    
   </div>
 </template>
 <script>
 
 import HeaderComp from '../../components/header.vue'
 import FooterComp from '../../components/footer.vue'
-import NavBar from '../../components/navBar.vue'
 import CardInfo from '../../components/Cards/cardInfo.vue'
 
 export default {
@@ -83,7 +25,6 @@ export default {
 
     HeaderComp,
     FooterComp,
-    NavBar,
     CardInfo,
   },
   name: "inicio",
