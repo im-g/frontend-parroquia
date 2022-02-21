@@ -1,7 +1,6 @@
 <template>
   <div class="wrapper fadeInDown">
     <div class="contenedor">
-      <img src="@/../images/parroquia.jpg" width="600" height="320" />
     </div>
     <div class="row">
       <div class="col-md " >
