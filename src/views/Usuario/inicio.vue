@@ -1,30 +1,16 @@
 <template>
   <div class="wrapper fadeInDown">
-    <div class="contenedor">
-
-      <div class="jumbotron">
-
-        <header-comp></header-comp>
-  
-        <card-info></card-info>
-
-        <footer-comp></footer-comp>
-        
-      </div>
+    <div class="container">
+      <card-info></card-info>
     </div>
   </div>
 </template>
 <script>
-
-import HeaderComp from '../../components/header.vue'
-import FooterComp from '../../components/footer.vue'
 import CardInfo from '../../components/Cards/cardInfo.vue'
 
 export default {
   components: {
 
-    HeaderComp,
-    FooterComp,
     CardInfo,
   },
   name: "inicio",

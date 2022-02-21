@@ -11,7 +11,8 @@
                     <div class="card">
                       <div class="card-body">
                         <h5 class="card-title">Semana santa</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <img class="card-img-top" src="@/../images/semana santa.jpg" width="100" height="160" alt="">
+                        <p></p>
                         <a href="#" class="btn btn-primary">Leer más</a>
                       </div>
                     </div>
@@ -21,8 +22,9 @@
                     <div class="card">
                       <div class="card-body">
                         <h5 class="card-title">Corpus Christi</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                        <a href="#" class="btn btn-primary">Leer más</a>
+                        <img class="card-img-top" src="@/../images/santisimo.jpg" width="100" height="160" alt="">
+                        <p></p>
+                        <a href="#" class="btn btn-primary"> Leer más</a>
                       </div>
                     </div>
                   </div>
@@ -31,14 +33,14 @@
                     <div class="card">
                       <div class="card-body">
                         <h5 class="card-title">Navidad</h5>
-                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                        <img class="card-img-top" src="@/../images/navidad.jpg" width="100" height="160" alt="">
+                        <p></p>
                         <a href="#" class="btn btn-primary">Leer más</a>
                       </div>
                     </div>
                   </div>
                 </div>
-                <a>
-                  <button class="btn btn-primary" style="float: right;">Ver más</button>
+                <a><br><button class="btn btn-primary" style="float: right;">Ver más</button>
                 </a> 
               </div>
             </div>
@@ -47,10 +49,16 @@
               <div class="card text-black text-center bg-light mb-3">
                 <div class="card-header"><strong>Horarios de misas</strong> </div>
                 <div class="card-body">
-                    
-                    <p class="card-text">Aquí podrás realizar la solicitud de una
-                      cita para bautizo, matrimonio, primera comunión, etc.</p>
-                  <button class="btn btn-primary">Ver programación</button>
+                  <h5>Lunes y festivos</h5>
+                  <p>No hay eucaristía</p>
+
+                  <h5>Martes a sábado</h5>
+                  <p>Mañana: 8:00 am <br> Tarde: 6:00 pm</p>
+
+                  <h5>Domingo</h5>
+                  <p>Mañana: 7:00 am - 9:00 am - 11:00 am<br> Tarde: 6:00 pm</p>
+
+                  <p><button class="btn btn-primary">Ver programación</button></p>
                 </div>
               </div>
             </div>
