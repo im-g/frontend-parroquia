@@ -22,7 +22,7 @@
                     aria-expanded="false"
                     aria-controls="collapseExample"
                   >
-                    {{ "Solicitante " }}{{ item.node.usuario.nombre }}
+                    {{ "Usuario " }}{{ item.node.usuario.nombre }}
                   </button>
                 </p>
                 <div class="collapse" :id="index">
@@ -31,6 +31,8 @@
                     <p>{{ "Estado " + item.node.estado }}</p>
                     <p>
                       {{ "Fecha inscripcion " + item.node.fechaInscripcion }}
+                    </p><p>
+                      {{ "Nombre Solicitante " + item.node.nombreSolicitante }}
                     </p>
                     <textarea :id="item.node.id" cols="30" rows="10"></textarea>
                     <button
@@ -129,6 +131,7 @@ export default {
           console.log(response.data.allSolicitudPartidas.edges);
           this.allSolicitudPartidas.edges =
             response.data.allSolicitudPartidas.edges;
+            this.$swal("Confirmación","Solicitud Atentida","success");
         });
     },
     filtrar(e) {

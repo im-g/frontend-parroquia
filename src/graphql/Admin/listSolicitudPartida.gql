@@ -7,6 +7,7 @@ query allSolicitudPartidas{
         estado
         fechaInscripcion
         respuesta
+        nombreSolicitante
         usuario{
           id
           nombre

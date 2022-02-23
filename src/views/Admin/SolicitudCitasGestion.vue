@@ -66,7 +66,7 @@
           </div>
 
           <div class="myfiltro">
-            <h2>Fecha Solicitudes</h2>
+            <h2>Fecha Solicitudes Citas</h2>
             <input
               type="date"
               v-on:change="filtrar($event)"
