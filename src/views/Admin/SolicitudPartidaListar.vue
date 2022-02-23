@@ -2,11 +2,10 @@
 <!--gestión de sol. de partidas-->
   <div>
     <nav-admin></nav-admin>
+    <myheader></myheader>
     <div class="wrapper fadeInDown">
       <div class="contenedor-filtro">
-        <div class="contenedor">
-          <img src="@/../images/parroquia.jpg" width="600" height="320" />
-        </div>
+        
 
         <div class="filtro">
           <div class="bucle">
@@ -70,6 +69,7 @@
 </template>
 
 <script>
+import myheader from '../../components/header.vue'
 import NavAdmin from './navAdmin.vue'
 console.log("id", localStorage.id);
 
@@ -78,6 +78,7 @@ export default {
 
   components: {
     NavAdmin,
+    myheader,
   },
   data() {
     return {

@@ -1,0 +1,10 @@
+query allServicios{
+  allServicios{
+    edges{
+      node{
+        id
+        nombreServicio
+      }
+    }
+  }
+}

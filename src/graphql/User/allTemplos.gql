@@ -1,0 +1,10 @@
+query allTemplos{
+  allTemplos{
+    edges{
+      node{
+        id
+        nombre
+      }
+    }
+  }
+}

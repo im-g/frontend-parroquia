@@ -1,0 +1,21 @@
+mutation createSolicitudServicio(
+  $hora: String!
+  $fecha: String!
+  $usuarioId: ID!
+  $temploId: ID!
+  $servicioId: ID!
+) {
+  createSolicitudServicio(
+    solicitudData:{
+        hora:$hora
+        fecha:$fecha
+        usuarioId:$usuarioId
+        temploId:$temploId
+        servicioId:$servicioId
+      }
+  ) {
+    solicitud {
+      id
+    }
+  }
+}

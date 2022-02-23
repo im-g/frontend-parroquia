@@ -2,6 +2,7 @@
 <!--citas agendadas-->
   <div>
     <nav-admin></nav-admin>
+    <myheader></myheader>
     <div class="wrapper fadeInDown">
       <div class="contenedor-filtro">
         <div class="contenedor">
@@ -67,12 +68,16 @@
 
 <script>
 import NavAdmin from './navAdmin.vue';
+
+import myheader from '../../components/header.vue'
 console.log("id", localStorage.id);
 
 export default {
   name: "SolicitudCitas",
 
-  components: {NavAdmin},
+  components: {NavAdmin,
+  myheader,
+  },
   data() {
     return {
       allSolicitudes: Object,

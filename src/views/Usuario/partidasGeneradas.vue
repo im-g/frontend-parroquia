@@ -1,10 +1,10 @@
 <template>
   <div>
+    <mynav></mynav>
+    <myheader></myheader>
     <div class="wrapper fadeInDown">
       <div class="contenedor-filtro">
-        <div class="contenedor">
-          <img src="@/../images/parroquia.jpg" width="600" height="320" />
-        </div>
+        
         <h1
           class="mb-3"
           style="color: #2b7797; font-family: 'Oswald', sans-serif"
@@ -55,10 +55,15 @@
 </template>
 
 <script>
+import mynav from './mynav.vue'
+
+import myheader from '../../components/header.vue'
 export default {
   name: "partidasGeneradas",
 
   components: {
+    mynav,
+    myheader,
   },
   data() {
     return {

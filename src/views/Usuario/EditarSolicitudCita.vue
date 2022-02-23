@@ -1,48 +1,56 @@
+
 <template>
   <div>
-    <mynav></mynav>
-    <myheader></myheader>
+     <mynav></mynav>
+     <myheader></myheader>
     <div class="wrapper fadeInDown">
-      <div class="contenedor-filtro">
-        
           <div  id="formContent">
             <h5 class="pt-3"
               style="color: #1d566f; font-family: 'Oswald', sans-serif"
             >
-              Crear Solicitud            
+              Editar Solicitud de Cita           
             </h5>
 
-            <form v-on:submit.prevent="crearSolicitud">
-              <select
-              tipe="select"              
-              class="form-select"
-              v-model="tipo"
-              aria-label="Default select example"
-              id="tipopartida"
-              >
-                <option disabled >Seleccione</option>
-                <option>bautismo</option>
-                <option>comunión</option>
-                <option>confirmación</option>
-                <option>matrimonio</option>
-                <option>defunción</option>              
-              </select>
+            <form v-on:submit.prevent="editarSolicitudcita">
+              <input
+              type="time"
+              v-model="horaSolicitud"
+              required
+              max="19:30:00"
+              min="07:00:00"
+              step="1"
+            />                       
              
               <input
                 type="date"
                 id="start"
                 class="fadeIn third"
-                v-model="fechaInscripcion"
+                v-model="fechaCita"
                 required
                 name="fecha"
                 min="1950-01-01"
-                max="2022-01-31"
+                max="2022-02-23"
               />
-              <input type="submit" class="fadeIn fourth" value="Crear" />
+
+              <select
+              tipe="select"              
+              class="form-select"
+              v-model="tipo"
+              aria-label="Default select example"
+              id="tipopartida"              
+              >
+                <option disabled >Seleccione</option>
+                <option>Confesion</option>
+                <option>Direccion Espritual</option>
+                <option>Consejeria a Joven</option>
+                <option>Consejeria a Pareja</option>
+                <option>Visita Enfermos</option>              
+              </select>
+
+              <input type="submit" class="fadeIn fourth" value="Editar" />
             </form>
           </div>
         </div>
-      </div>
     </div>
 </template>
 
@@ -53,48 +61,65 @@ import mynav from './mynav.vue'
 import myheader from '../../components/header.vue'
 export default {
 
-  name: "crearSolicitud",
+  name: "editarCita",
   components:{
-    myheader,
     mynav,
+    myheader,
   },
   data() {
     return {
-      tipo : "",
-      fechaInscripcion: "",
+      idSolicitud : "U29saWNpdHVkU2VydmljaW9Ob2RlOjE=",
+      horaSolicitud : "",
+      fechaCita : "",
+      estado :"En espera",
       usuarioId: "",
+      templo : "",
+      tipo : "",    
+      
      
     };
   },
   mounted() {
     if (localStorage.id) {
       this.usuarioId = localStorage.id;
+      //this.idSolicitud = localStorage.id;
     }
   },
   methods: {
-    crearSolicitud() {
-      var updateRespuesta=document.getElementById("tipopartida").value.toString().toLowerCase();
+    
+    editarSolicitudcita() {
       
-      this.tipo=updateRespuesta;
-      console.log("fecha", this.fechaInscripcion);
+      var updateRespuesta=document.getElementById("tipopartida").value.toString().toLowerCase();
+      console.log("id solicitud : ", this.idSolicitud);
+      console.log("hora: ", this.horaSolicitud);
+      this.tipo=updateRespuesta;      
+      console.log("fecha", this.fechaCita);   
+      console.log("estado : ",this.estado);  
       console.log("usuario ", this.usuarioId);
+      console.log("templo", this.templo);
       console.log(this.tipo);
       this.$apollo
         .mutate({
           // Establece la mutación de crear
-          mutation: require("@/graphql/User/crearSolicitudPartida.gql"),
+          mutation: require("@/graphql/User/editarSolicitudCita.gql"),
           // Define las variables
           variables: {
-            tipo: this.tipo,
-            fecha: this.fechaInscripcion,
-            id: this.usuarioId,
+            //primer variable es como esta en la base de datos y la segunda como esta en las vista
+            idSolicitud:this.idSolicitud,
+            hora: this.horaSolicitud,
+            fecha: this.fechaCita,
+            estado: this.estado,
+            idUsuario: this.usuarioId,
+            temploId: this.templo,
+            servicioId: this.tipo,
+                        
           },
           //línea para actualizar
           fetchPolicy: "no-cache",
         })
         .then((response) => {
-          this.$swal("Correcto","Partida creada correctamente","success");
-          console.log("Registro de crear Solicitud de Partida:", response.data);
+          this.$swal("Correcto","Cita Editada correctamente","success");
+          console.log("Editada Solicitud de cita:", response.data);
           this.$router.push({ name: "partidasGeneradas" });
         });
     },
@@ -185,7 +210,26 @@ h2 {
   min-height: 100%;
   padding: 20px;
 }
-
+input[type="time"] {
+  background-color: #f6f6f6;
+  border: none;
+  color: #0d0d0d;
+  padding: 10px 32px;
+  display: inline-block;
+  font-size: 16px;
+  text-align: center;
+  text-decoration: none;
+  margin: 5px;
+  width: 60%;
+  border: 2px solid #f6f6f6;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+  -webkit-border-radius: 5px 5px 5px 5px;
+  border-radius: 5px 5px 5px 5px;
+}
 #formContent {
   -webkit-border-radius: 10px 10px 10px 10px;
   border-radius: 10px 10px 10px 10px;

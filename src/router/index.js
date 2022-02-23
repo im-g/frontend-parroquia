@@ -7,19 +7,14 @@ export default new Router({
 base: process.env.BASE_URL,
   routes:[
     {
-      path: "/parroquia",
-      name: "parroquia",
-      component: () => import("@/components/Servicios/principal.vue"),
+      path: "/",
+      name: "login",
+      component: () => import("@/views/Usuario/Login.vue"),
     },
     {
       path: "/login",
       name: "login",
       component: () => import("@/views/Usuario/Login.vue"),
-    },
-    {
-      path: "/inicio",
-      name: "inicio",
-      component: () => import("@/views/Usuario/inicio.vue"),
     },
     {
       path: "/solicitudesPartidas",
@@ -60,6 +55,11 @@ base: process.env.BASE_URL,
       path: "/partidasGeneradas",
       name: "partidasGeneradas",
       component: () => import("@/views/Usuario/partidasGeneradas.vue"),
+    },
+    {
+      path: "/editarCita",
+      name: "editarCita",
+      component: () => import("@/views/Usuario/EditarSolicitudCita.vue"),
     },
     {
       path: "/registrar",

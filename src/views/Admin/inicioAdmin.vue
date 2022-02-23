@@ -1,6 +1,7 @@
 <template>
   <div class="wrapper fadeInDown">
       <nav-admin></nav-admin>
+      <myheader></myheader>
     <div class="container">
       <card-info></card-info>
     </div>
@@ -8,13 +9,14 @@
 </template>
 <script>
 import CardInfo from '../../components/Cards/cardInfo.vue'
+import myheader from '../../components/header.vue'
 import NavAdmin from './navAdmin.vue'
 
 export default {
   components: {
-
     CardInfo,
     NavAdmin,
+    myheader,
   },
   name: "inicio",
   data() {

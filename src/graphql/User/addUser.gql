@@ -1,4 +1,5 @@
 mutation createUsuario(
+  $cedula: String!
   $nombre: String!
   $telefono: String!
   $email: String!
@@ -7,6 +8,7 @@ mutation createUsuario(
   ) {
   createUsuario(
     input: { 
+      cedula:$cedula
       nombre:$nombre
       telefono:$telefono
       correo:$email

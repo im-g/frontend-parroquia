@@ -1,0 +1,27 @@
+mutation actualizarSolicitud(
+  $idSolicitud : ID!
+  $hora: String
+  $fecha: String
+  $estado: String
+  $idUsuario: ID! 
+  $temploId:ID!
+  $servicioId:ID!
+
+){
+  updateSolicitudServicio(
+    solicitudData:{
+    id: $idSolicitud
+    hora: $hora
+    fecha: $fecha
+    estado: $estado    
+    usuarioId: $idUsuario
+    temploId: $temploId
+    servicioId: $servicioId
+  }){
+    solicitud{
+       id
+    	 hora
+       estado
+    }
+  }
+}

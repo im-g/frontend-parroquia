@@ -1,17 +1,24 @@
 <template>
-  <div class="wrapper fadeInDown">
-    <div class="container">
-      <card-info></card-info>
+  <div>
+    <mynav></mynav>
+    <myheader></myheader>
+    <div class="wrapper fadeInDown">
+      <div class="container">
+        <card-info></card-info>
+      </div>
     </div>
   </div>
 </template>
 <script>
-import CardInfo from '../../components/Cards/cardInfo.vue'
+import CardInfo from "../../components/Cards/cardInfo.vue";
+import mynav from "./mynav.vue";
 
+import myheader from '../../components/header.vue'
 export default {
   components: {
-
+    mynav,
     CardInfo,
+    myheader,
   },
   name: "inicio",
   data() {

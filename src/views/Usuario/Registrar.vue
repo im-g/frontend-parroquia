@@ -51,6 +51,16 @@
                   
                 name="telefono"
                 placeholder="telefono"
+              /> 
+              <input
+                type="number"
+                v-model="cedula"
+                required
+                id="cedula"
+                class="fadeIn second"
+                  
+                name="cedula"
+                placeholder="cedula"
               />
               <input
                 type="text"
@@ -104,6 +114,7 @@ export default {
       nombre: "",
       Telefono: "",
       fechaNacimiento: "",
+      cedula: "",
     };
   },
   methods: {
@@ -113,12 +124,14 @@ export default {
       console.log("nombre ", this.nombre);
       console.log("tel", this.Telefono);
       console.log("feNa", this.fechaNacimiento);
+      console.log("Cedula", this.cedula);
       this.$apollo
         .mutate({
           // Establece la mutación de crear
           mutation: require("@/graphql/User/addUser.gql"),
           // Define las variables
           variables: {
+            cedula: this.cedula,
             nombre: this.nombre,
             telefono: this.Telefono,
             email: this.email,

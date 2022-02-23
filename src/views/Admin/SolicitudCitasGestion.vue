@@ -2,11 +2,9 @@
 <!--gestión citas general-->
   <div>
     <nav-admin></nav-admin>
+    <myheader></myheader>
     <div class="wrapper fadeInDown">
       <div class="contenedor-filtro">
-        <div class="contenedor">
-          <img src="@/../images/parroquia.jpg" width="600" height="320" />
-        </div>
         <div class="filtro">
           <div class="bucle">
             <div v-if="datatime != 'nodata'">
@@ -84,6 +82,8 @@
 
 <script>
 import NavAdmin from './navAdmin.vue'
+
+import myheader from '../../components/header.vue'
 console.log("id", localStorage.id);
 
 export default {
@@ -91,6 +91,7 @@ export default {
 
   components: {
     NavAdmin,
+    myheader,
   },
   data() {
     return {
@@ -146,7 +147,11 @@ export default {
         })
         .then((response) => {
           console.log(response.data.allSolicitudes.edges);
-          this.allSolicitudes.edges = response.data.allSolicitudes.edges;
+          this.$swal("Resultado","Solicitud Atendida","success").then(() => {
+            // Aquí la alerta se ha cerrado}
+            location.reload(true);
+          });
+          //this.allSolicitudes.edges = response.data.allSolicitudes.edges;
         });
     },
     filtrar(e) {

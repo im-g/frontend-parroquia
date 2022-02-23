@@ -1,0 +1,18 @@
+query allSolicitudes{
+  allSolicitudes{
+    edges{
+      node{
+        id
+        estado
+        servicio{
+          nombreServicio
+        }
+        usuario{
+          id
+          nombre
+        }
+        
+      }
+    }
+  }
+}
