@@ -1,5 +1,7 @@
 <template>
+<!--gestión de sol. de partidas-->
   <div>
+    <nav-admin></nav-admin>
     <div class="wrapper fadeInDown">
       <div class="contenedor-filtro">
         <div class="contenedor">
@@ -68,12 +70,15 @@
 </template>
 
 <script>
+import NavAdmin from './navAdmin.vue'
 console.log("id", localStorage.id);
 
 export default {
   name: "SolicitudPartidas",
 
-  components: {},
+  components: {
+    NavAdmin,
+  },
   data() {
     return {
       allSolicitudPartidas: Object,

@@ -1,9 +1,10 @@
 <template>
+<!--citas agendadas-->
   <div>
+    <nav-admin></nav-admin>
     <div class="wrapper fadeInDown">
       <div class="contenedor-filtro">
         <div class="contenedor">
-          <img src="@/../images/parroquia.jpg" width="600" height="320" />
         </div>
 
         <div class="filtro">
@@ -65,12 +66,13 @@
 </template>
 
 <script>
+import NavAdmin from './navAdmin.vue';
 console.log("id", localStorage.id);
 
 export default {
   name: "SolicitudCitas",
 
-  components: {},
+  components: {NavAdmin},
   data() {
     return {
       allSolicitudes: Object,

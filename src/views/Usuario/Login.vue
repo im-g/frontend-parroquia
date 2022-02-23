@@ -97,9 +97,11 @@ export default {
             localStorage.id = element.id;
             if (element.rol == "USER") {
               this.$router.push({ name: "inicio" });
-            } else {
-              this.$router.push({ name: "solicitudesPartidas" });
+            } 
+            else {
+              this.$router.push({ name: "inicioAdmin" });
             }
+            
             this.$swal("Bienvenido",element.nombre,"success");
             console.log("Ingreso a sistema");
             break;
