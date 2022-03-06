@@ -1,83 +1,83 @@
 <template>
-<!--citas agendadas-->
+  <!--citas agendadas-->
   <div>
     <nav-admin></nav-admin>
     <myheader></myheader>
-    <div class="wrapper fadeInDown">
-      <div class="contenedor-filtro">
-        <div class="contenedor">
+    <div class="wrapper fadeInDown general">
+      <h1 style="text-align:center;font-weight: bold;margin-bottom: 40px;">CRONOGRAMA PARROQUIAL</h1>
+       <div class="myfiltro" style="display: flex;justify-content: center;margin: 15px 0px; gap:20px;align-items: center;">
+            <div style="text-align: center;">
+          <h3>seleccionar fecha</h3>
+          
         </div>
-
-        <div class="filtro">
-          <div class="bucle">
-            <div v-if="datatime != 'nodata'">
-              <div v-for="(item, index) in allSolicitudes.edges" :key="index">
-                <div v-if="item.node.estado == 'SEPARADO'">
-                <p>
-                  <button
-                    class="btn btn-primary btn-lg btn-block"
-                    data-toggle="collapse"
-                    :data-target="'#' + index"
-                    aria-expanded="false"
-                    aria-controls="collapseExample"
-                  >
-                    <p>
-                      {{ "Hora Agenda " + item.node.hora }}{{ " / Solicitante "
-                      }}{{ item.node.usuario.nombre }}
-                    </p>
-                  </button>
-                </p>
-                <div class="collapse" :id="index">
-                  <div class="card card-body">
-                    <p>
-                      {{
-                        "Tipo solicitud " + item.node.servicio.nombreServicio
-                      }}
-                    </p>
-                    <p>{{ "Estado " + item.node.estado }}</p>
-                    <p>
-                      {{ "Nombre solicitante " + item.node.usuario.nombre }}
-                    </p>
-                    <p>{{ "Templo agendado  " + item.node.templo.nombre }}</p>
-                    <p>{{ "Fecha agendada " + item.node.fecha }}</p>
-                    <p>{{ "Hora agendada " + item.node.hora }}</p>
-                  </div>
-                </div>
-                </div>
-              </div>
-            </div>
-            <div v-else>
-                <h2>Seleccionar fecha de agenda</h2>
-            </div>
-          </div>
-
-          <div class="myfiltro">
-            <h2>Fecha Agenda</h2>
             <input
               type="date"
-              v-on:change="filtrar($event)"
+              v-model="myfecha"
+              v-on:change="filtrar()"
               id="start"
               name="trip-start"
             />
           </div>
+            <p style="text-align:center;">Se van a listar todas las solicitudes en estado Aprobado para la fecha seleccionada  </p>
+
+          <div class="bucle">
+            <div v-if="datatime != 'nodata'">
+              <div v-for="(item, index) in allSolicitudes.edges" :key="index">
+                <div v-if="item.node.estado == 'SEPARADO'">
+                  <p>
+                    <button
+                      class="accordion-button collapsed"
+                      data-toggle="collapse"
+                      :data-target="'#' + index"
+                      aria-expanded="false"
+                      aria-controls="collapseExample"
+                    >
+                      <p>
+                        {{ "Hora Agenda " + item.node.hora
+                        }}{{ " / Solicitante " }}{{ item.node.usuario.nombre }}
+                      </p>
+                    </button>
+                  </p>
+                  <div class="collapse" :id="index">
+                    <div class="card card-body">
+                      <p>
+                        {{
+                          "Tipo solicitud " + item.node.servicio.nombreServicio
+                        }}
+                      </p>
+                      <p>{{ "Estado " + item.node.estado }}</p>
+                      <p>
+                        {{ "Nombre solicitante " + item.node.usuario.nombre }}
+                      </p>
+                      <p>{{ "Templo agendado  " + item.node.templo.nombre }}</p>
+                      <p>{{ "Fecha agendada " + item.node.fecha }}</p>
+                      <p>{{ "Hora agendada " + item.node.hora }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div v-else>
+              <h2>Seleccionar fecha de agenda</h2>
+            </div>
+          </div>
+
+          
         </div>
       </div>
-    </div>
-  </div>
+    
 </template>
 
 <script>
-import NavAdmin from './navAdmin.vue';
+import NavAdmin from "./navAdmin.vue";
 
-import myheader from '../../components/header.vue'
+import myheader from "../../components/header.vue";
 console.log("id", localStorage.id);
 
 export default {
   name: "SolicitudCitas",
 
-  components: {NavAdmin,
-  myheader,
-  },
+  components: { NavAdmin, myheader },
   data() {
     return {
       allSolicitudes: Object,
@@ -86,18 +86,23 @@ export default {
       password: "",
       selected: "",
       datatime: "nodata",
+      myfecha:""
     };
   },
   mounted() {
     if (localStorage.id) {
       this.id = localStorage.id;
     }
+    this.myfecha=new Date().toISOString().substr(0, 10);
+    this.filtrar();
   },
 
   methods: {
-    filtrar(e) {
-      console.log("cambio", e.target.value);
-      this.datatime = e.target.value;
+    filtrar() {
+      let thisaux=this
+      console.log("filtrar")
+      console.log("myfecha ",this.myfecha)
+      this.datatime = this.myfecha;
       this.$apollo
         .mutate({
           // Establece la mutación de crear
@@ -109,10 +114,23 @@ export default {
           this.allSolicitudes.edges = response.data.allSolicitudes.edges.filter(
             function (elem) {
               console.log(elem.node.fecha);
-              console.log(e.target.value);
-              return elem.node.fecha === e.target.value;
+              console.log(thisaux.myfecha);
+              return elem.node.fecha === thisaux.myfecha;
             }
           );
+
+          this.allSolicitudes.edges.sort(function (a, b) {
+            
+  if (parseInt(a.node.hora.split(":")[0],10) > parseInt(b.node.hora.split(":")[0],10)) {
+    return 1;
+  }
+  if (parseInt(a.node.hora.split(":")[0],10) < parseInt(b.node.hora.split(":")[0],10)) {
+    return -1;
+  }
+  // a must be equal to b
+  return 0;
+});
+
         });
     },
   },
@@ -164,9 +182,25 @@ a {
   grid-template-columns: 1fr 2fr;
   padding: 15px;
 }
+.general{
+  margin: 0 auto;
+    width: 90%;
+}
+input#start {
+    border-radius: 10px;
+    border: none;
+    font-size: 1.5rem;
+}
 .bucle {
   grid-column-start: 2;
   grid-column-end: 4;
+}
+.accordion-button{
+  width: 100%;
+  background: lightslategrey;
+  color: white;
+  font-size: 1rem;
+  border-radius: 10px;
 }
 /* ANIMATIONS */
 

@@ -1,89 +1,86 @@
 <template>
-<!--gestión citas general-->
+  <!--gestión citas general-->
   <div>
     <nav-admin></nav-admin>
     <myheader></myheader>
-    <div class="wrapper fadeInDown">
-      <div class="contenedor-filtro">
-        <div class="filtro">
+    <div class="wrapper fadeInDown general">
+      <h1 style="text-align:center;font-weight: bold;margin-bottom: 40px;">GESTION SOLICITUDES CITAS</h1>
+      <div class="myfiltro" style="display: flex;justify-content: center;margin: 15px 0px; gap:20px;align-items: center;">
+        
+        <div style="text-align: center;">
+          <h3>seleccionar fecha</h3>
+          
+        </div>
+        
+            
+            <input type="date"
+              v-model="myfecha"
+              v-on:change="filtrar()"
+              id="start"
+              name="trip-start"/>
+          </div>
+            <p style="text-align:center;">Se van a listar todas las solicitudes en estado solicitado para la fecha seleccionada  </p>
+
+          <div class="info-filtro">
+            <div>
+              <div style="background:#3ea3cd; border-radius:10px; color:white;padding: 0.5rem;">
+                <p class="myp">Aprobado</p>
+              </div>
+              
+              <p>Se aprueba una solicitud de un usuario y pasa a ser parte del cronograma de compromisos de la parroquia para la fecha establecida</p>
+            </div>
+            <div>
+              <div style="background:#8c8e8f; border-radius:10px; color:white;padding: 0.5rem;">
+                <p class="myp">Desaprobado</p>
+              </div>
+              
+              <p>Se desaprueba una solicitud de un usuario al no poder agendarse por no cumplir con los requisitos necesarios para ser aprobada</p>
+            </div>
+            
+          </div>
+        
           <div class="bucle">
             <div v-if="datatime != 'nodata'">
-            <div v-for="(item, index) in allSolicitudes.edges" :key="index">
-              <div v-if="item.node.estado == 'SOLICITADO'">
-                <p>
-                  <button
-                    class="btn btn-primary btn-lg btn-block"
-                    data-toggle="collapse"
-                    :data-target="'#' + index"
-                    aria-expanded="false"
-                    aria-controls="collapseExample"
-                  >
-                    <p>
-                      {{ "Hora Agenda " + item.node.hora }}{{ " / Solicitante "
-                      }}{{ item.node.usuario.nombre}}
-                    </p>
-                  </button>
-                </p>
-                <div class="collapse" :id="index">
-                  <div class="card card-body">
-                    <p>
-                      {{
-                        "Tipo solicitud " + item.node.servicio.nombreServicio
-                      }}
-                    </p>
-                    <p>{{ "Estado " + item.node.estado }}</p>
-                    <p>
-                      {{ "Nombre solicitante " + item.node.usuario.nombre }}
-                    </p>
-                    <p>{{ "Templo agendado  " + item.node.templo.nombre }}</p>
-                    <p>{{ "Fecha agendada " + item.node.fecha }}</p>
-                    <p>{{ "Hora agendada " + item.node.hora }}</p>
+              <div v-for="(item, index) in allSolicitudes.edges" :key="index">
+                <div v-if="item.node.estado == 'SOLICITADO'">
+                  <p>
                     <button
-                      v-on:click="respuestaSolicitud(item.node, 'separado')"
-                      type="button"
-                      class="btn btn-success"
-                    >
-                      Aprobado
+                    style="margin: 0;"
+                      class="accordion-button collapsed"
+                      data-toggle="collapse"
+                      :data-target="'#' + index"
+                      aria-expanded="false"
+                      aria-controls="collapseExample">
+                      <p>{{ "Hora Agenda " + item.node.hora}}{{ " / Solicitante " }}{{ item.node.usuario.nombre }}</p>
                     </button>
-                    <button
-                      v-on:click="respuestaSolicitud(item.node, 'cancelado')"
-                      type="button"
-                      class="btn btn-danger"
-                    >
-                      Desaprobado
-                    </button>
+                  </p>
+                  <div class="collapse" :id="index">
+                    <div class="card card-body">
+                      <p>{{"Tipo solicitud " + item.node.servicio.nombreServicio}} </p>
+                      <p>{{ "Estado " + item.node.estado }}</p>
+                      <p>{{ "Nombre solicitante " + item.node.usuario.nombre }}</p>
+                      <p>{{ "Templo agendado  " + item.node.templo.nombre }}</p>
+                      <p>{{ "Fecha agendada " + item.node.fecha }}</p>
+                      <p>{{ "Hora agendada " + item.node.hora }}</p>
+                      <button style="background:#3ea3cd;border: none;margin-bottom: 10px;" v-on:click="respuestaSolicitud(item.node, 'separado')" type="button" class="btn btn-success">Aprobado</button>
+                      <button style="background:#8c8e8f;border: none;" v-on:click="respuestaSolicitud(item.node, 'cancelado')" type="button"  class="btn btn-danger">Desaprobado</button>
+                    </div>
                   </div>
                 </div>
-              
               </div>
-            
-            </div>
-            
             </div>
             <div v-else>
-                <h2>Seleccionar fecha de Solicitudes</h2>
+              <p style="text-align:center;color: white;background-color: darkgray;">Por favor Seleccionar fecha de Solicitudes</p>
             </div>
           </div>
-
-          <div class="myfiltro">
-            <h2>Fecha Solicitudes Citas</h2>
-            <input
-              type="date"
-              v-on:change="filtrar($event)"
-              id="start"
-              name="trip-start"
-            />
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
 
 <script>
-import NavAdmin from './navAdmin.vue'
+import NavAdmin from "./navAdmin.vue";
 
-import myheader from '../../components/header.vue'
+import myheader from "../../components/header.vue";
 console.log("id", localStorage.id);
 
 export default {
@@ -101,12 +98,15 @@ export default {
       password: "",
       selected: "",
       datatime: "nodata",
+      myfecha:""
     };
   },
   mounted() {
     if (localStorage.id) {
       this.id = localStorage.id;
     }
+    this.myfecha=new Date().toISOString().substr(0, 10);
+    this.filtrar();
   },
 
   methods: {
@@ -147,16 +147,18 @@ export default {
         })
         .then((response) => {
           console.log(response.data.allSolicitudes.edges);
-          this.$swal("Resultado","Solicitud Atendida","success").then(() => {
+          this.$swal("Resultado", "Solicitud Atendida", "success").then(() => {
             // Aquí la alerta se ha cerrado}
-            location.reload(true);
+            //location.reload(true);
           });
-          //this.allSolicitudes.edges = response.data.allSolicitudes.edges;
+          this.allSolicitudes.edges = response.data.allSolicitudes.edges;
+          this.filtrar();
         });
     },
-    filtrar(e) {
-      console.log("cambio", e.target.value);
-      this.datatime = e.target.value;
+    filtrar() {
+      //console.log("cambio", e.target.value);
+      let self=this;
+      this.datatime = this.myfecha;
       this.$apollo
         .mutate({
           // Establece la mutación de crear
@@ -168,8 +170,8 @@ export default {
           this.allSolicitudes.edges = response.data.allSolicitudes.edges.filter(
             function (elem) {
               console.log(elem.node.fecha);
-              console.log(e.target.value);
-              return elem.node.fecha === e.target.value;
+              //console.log(e.target.value);
+              return elem.node.fecha === self.myfecha;
             }
           );
         });
@@ -214,6 +216,9 @@ a {
   justify-content: center;
   text-align: center;
 }
+.myp{
+  margin: 0;
+}
 .myfiltro {
   grid-row-start: 1;
   grid-row-end: 2;
@@ -238,7 +243,21 @@ a {
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
-
+.info-filtro{
+  text-align: center;
+  display: flex;
+    justify-content: space-around;
+    gap: 10px;
+}
+.general{
+  margin: 0 auto;
+    width: 90%;
+}
+input#start {
+    border-radius: 10px;
+    border: none;
+    font-size: 1.5rem;
+}
 @-webkit-keyframes fadeInDown {
   0% {
     opacity: 0;
@@ -349,7 +368,13 @@ a {
 .underlineHover:hover:after {
   width: 100%;
 }
-
+.accordion-button{
+  width: 100%;
+  background: lightslategrey;
+  color: white;
+  font-size: 1rem;
+  border-radius: 10px;
+}
 /* OTHERS */
 
 *:focus {
