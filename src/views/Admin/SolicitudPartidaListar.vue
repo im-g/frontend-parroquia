@@ -3,53 +3,13 @@
   <div>
     <nav-admin></nav-admin>
     <myheader></myheader>
-    <div class="wrapper fadeInDown">
-      <div class="contenedor-filtro">
-        
-
-        <div class="filtro">
-          <div class="bucle">
-            <div
-              v-for="(item, index) in allSolicitudPartidas.edges"
-              :key="index"
-            >
-              <div v-if="item.node.estado != 'FINALIZADO'">
-                <p>
-                  <button
-                    class="btn btn-primary btn-lg btn-block"
-                    data-toggle="collapse"
-                    :data-target="'#' + index"
-                    aria-expanded="false"
-                    aria-controls="collapseExample"
-                  >
-                    {{ "Usuario " }}{{ item.node.usuario.nombre }}
-                  </button>
-                </p>
-                <div class="collapse" :id="index">
-                  <div class="card card-body">
-                    <p>{{ "Tipo solicitud " + item.node.tipo }}</p>
-                    <p>{{ "Estado " + item.node.estado }}</p>
-                    <p>
-                      {{ "Fecha inscripcion " + item.node.fechaInscripcion }}
-                    </p><p>
-                      {{ "Nombre Solicitante " + item.node.nombreSolicitante }}
-                    </p>
-                    <textarea :id="item.node.id" cols="30" rows="10"></textarea>
-                    <button
-                      v-on:click="respuestaSolicitud(item.node)"
-                      type="button"
-                      class="btn btn-success"
-                    >
-                      Responder
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="myfiltro">
-            <h2>Tipo de Solicitud</h2>
+    <div class="wrapper fadeInDown general">
+      <h1 style="text-align:center;font-weight: bold;margin-bottom: 40px;">GESTION SOLICITUDES PARTIDAS</h1>
+        <div class="myfiltro" style="display: flex;justify-content: center;margin: 15px 0px; gap:20px;align-items: center;">
+            <div style="text-align: center;">
+          <h3>seleccionar tipo partida</h3>
+          
+        </div>
             <select
               v-on:change="filtrar($event)"
               class="form-select"
@@ -64,8 +24,48 @@
               <option>TODOS</option>
             </select>
           </div>
-        </div>
-      </div>
+            <p style="text-align:center;">Se van a listar todas las solicitudes de las partidas y se pueden filtrar según el tipo de partida</p>    
+          <div class="bucle">
+            <div
+              v-for="(item, index) in allSolicitudPartidas.edges"
+              :key="index"
+            >
+              <div v-if="item.node.estado != 'FINALIZADO'">
+                <p>
+                  <button
+                    class="accordion-button collapsed"
+                    data-toggle="collapse"
+                    :data-target="'#' + index"
+                    aria-expanded="false"
+                    aria-controls="collapseExample"
+                  >
+                  <p>{{ "Usuario " }}{{ item.node.usuario.nombre }}</p>
+                    
+                  </button>
+                </p>
+                <div class="collapse" :id="index">
+                  <div class="card card-body">
+                    <p>{{ "Tipo solicitud " + item.node.tipo }}</p>
+                    <p>{{ "Estado " + item.node.estado }}</p>
+                    <p>
+                      {{ "Fecha inscripcion " + item.node.fechaInscripcion }}
+                    </p><p>
+                      {{ "Nombre Solicitante " + item.node.nombreSolicitante }}
+                    </p>
+                    <textarea :id="item.node.id" cols="30" rows="10" style="height: 100px;border-radius: 20px;margin-bottom: 20px;"></textarea>
+                    <button
+                    style="background:#3ea3cd;border: none;"
+                      v-on:click="respuestaSolicitud(item.node)"
+                      type="button"
+                      class="btn btn-success"
+                    >
+                      Responder
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
     </div>
   </div>
 </template>
@@ -182,7 +182,13 @@ a {
   text-decoration: none;
   font-weight: 400;
 }
-
+.accordion-button{
+  width: 100%;
+  background: lightslategrey;
+  color: white;
+  font-size: 1rem;
+  border-radius: 10px;
+}
 .contenedor {
   padding-top: 15px;
 }
@@ -192,6 +198,15 @@ a {
   align-items: center;
   justify-content: center;
   text-align: center;
+}
+.general{
+  margin: 0 auto;
+    width: 90%;
+}
+select.form-select {
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 10px;
 }
 .myfiltro {
   grid-row-start: 1;
