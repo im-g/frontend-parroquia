@@ -1,0 +1,17 @@
+mutation createCurso(
+    $nombreCurso:String!
+    $lugar: String!
+    $hora: Time!
+){       
+  createCurso(
+    cursoData:{
+        nombreCurso:$nombreCurso,
+        lugar:$lugar,
+        hora:$hora
+  }){
+    curso {
+      id
+      nombreCurso
+    }
+  }
+}

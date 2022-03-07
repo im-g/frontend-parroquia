@@ -22,6 +22,11 @@ base: process.env.BASE_URL,
       component: () => import("@/views/Admin/SolicitudPartidaListar.vue"),
     },
     {
+      path: "/crearcurso",
+      name: "crearcursos",
+      component: () => import("@/views/Admin/crearcurso.vue"),
+    },
+    {
       path: "/solicitudesCitasGestion",
       name: "solicitudesCitasGestion",
       component: () => import("@/views/Admin/SolicitudCitasGestion.vue"), 
