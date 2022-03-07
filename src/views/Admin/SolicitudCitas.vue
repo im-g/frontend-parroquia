@@ -4,7 +4,7 @@
     <nav-admin></nav-admin>
     <myheader></myheader>
     <div class="wrapper fadeInDown general">
-      <h1 style="text-align:center;font-weight: bold;margin-bottom: 40px;">CRONOGRAMA PARROQUIAL</h1>
+      <h1 style="text-align:center;font-weight: bold;margin-bottom: 40px;color:rgba(0, 0, 0, 0.4);">CRONOGRAMA PARROQUIAL</h1>
        <div class="myfiltro" style="display: flex;justify-content: center;margin: 15px 0px; gap:20px;align-items: center;">
             <div style="text-align: center;">
           <h3>seleccionar fecha</h3>
@@ -185,11 +185,13 @@ a {
 .general{
   margin: 0 auto;
     width: 90%;
+    color:rgba(0, 0, 0, 0.4);
 }
 input#start {
     border-radius: 10px;
     border: none;
     font-size: 1.5rem;
+    color:rgba(0, 0, 0, 0.4);
 }
 .bucle {
   grid-column-start: 2;

@@ -135,6 +135,7 @@ a {
 .general{
   margin: 0 auto;
     width: 90%;
+    color:rgba(0, 0, 0, 0.4);
 }
 .contenedor {
   padding-top: 15px;
