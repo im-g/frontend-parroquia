@@ -4,6 +4,8 @@ query allSolicitudes{
       node{
         id
         estado
+        hora
+        fecha
         servicio{
           nombreServicio
         }

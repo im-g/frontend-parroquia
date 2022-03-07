@@ -2,16 +2,22 @@
 <div> 
   <mynav></mynav>
   <myheader></myheader>
-  <div class="wrapper fadeInDown">
+  <div class="wrapper fadeInDown general">
      <h1 style="text-align:center;font-weight: bold;margin-bottom: 40px;">SOLICITUDES CITAS</h1>
-    <div class="row">
-      <div class="col-md">
-        <h3
-          class="pt-3"
-          style="color: #1d566f; font-family: 'Oswald', sans-serif"
-        >
-          Crear Solicitud Cita
-        </h3>
+    
+      <div class="myfiltro" style="display: flex;justify-content: center;margin: 15px 0px; gap:20px;align-items: center;">
+        <div style="text-align: center;">
+          <h3>Crear solicitud cita</h3>
+          
+        </div>
+        
+        <button
+            class="btnuno"
+            v-on:click="crearPartida"
+          >
+            Crear
+          </button>
+        <!--
         <div id="formContent" class="contenedor">
           <form v-on:submit.prevent="solicitarCita">
             <input
@@ -63,48 +69,41 @@
             <input type="submit" class="fadeIn fourth" value="Solicitar" />
           </form>
         </div>
+      -->
+      
       </div>
-      <div class="col-md">
-        <h3
-          class="pt-3"
-          style="color: #1d566f; font-family: 'Oswald', sans-serif"
-        >
-          Solicitudes en proceso
-        </h3>
+      <p style="text-align:center;">A Continuación  puede seleccionar el botón crear para generar una nueva solicitud de cita</p>    
+      <h2 style="text-align: center; font-weight: bold;margin-top: 40px;">
+        MIS SOLICITUDES CITAS
+      </h2>
+        <p style="text-align:center;">Se listan todas las solicitudes de citas generadas por el usuario en sesión  </p>    
         <div class="bucle">
           <div v-for="(item, index) in allSolicitudes.edges" :key="index">
             <div v-if="item.node.usuario.id == id">
               <p>
                 <button
-                  class="btn btn-primary"
+                  class="accordion-button collapsed"
                   data-toggle="collapse"
                   :data-target="'#' + index"
                   aria-expanded="false"
                   aria-controls="collapseExample"
-                  style="width: 500px; height: 50px"
+                  
                 >
-                  {{ item.node.servicio.nombreServicio }}
+                <p>{{ item.node.servicio.nombreServicio }}</p>
+                  
                 </button>
-                <button
-                  style="margin: 10px; width: 100px; height: 50px"
-                  type="submit"
-                  value="editar"
-                  class="btn btn-info"
-                  v-on:click="editar"
-                >
-                  Editar
-                </button>
+                
               </p>
               <div class="collapse" :id="index">
                 <div class="card card-body">
                   <p>{{ "Estado " + item.node.estado }}</p>
+                  <p>{{ "Fecha " + item.node.fecha }}</p>
+                  <p>{{ "Hora " + item.node.hora }}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </div>
   </div>
 </div>
 </template>
@@ -165,6 +164,9 @@ export default {
         .then((response) => {
           this.allTemplos = response.data.allTemplos.edges;
         });
+    },
+    crearPartida(){
+      //todo
     },
     obteneridTemplo() {
       for (let variable of this.allTemplos) {
@@ -262,7 +264,30 @@ input[type="reset"] {
   -o-transition: all 0.3s ease-in-out;
   transition: all 0.3s ease-in-out;
 }
-
+.accordion-button{
+  width: 100%;
+  background: lightslategrey;
+  color: white;
+  font-size: 1rem;
+  border-radius: 10px;
+}
+.general{
+  margin: 0 auto;
+    width: 90%;
+    color:rgba(0, 0, 0, 0.4);
+    
+}
+.card-body{
+  align-items: start;
+}
+.btnuno{
+  border-radius: 10px;
+  background-color: #3ea3cd;
+  color: white;
+  border: none;
+  width: 25%;
+    padding: 7px;
+}
 .fadeIn.third {
   -webkit-animation-delay: 0.8s;
   -moz-animation-delay: 0.8s;
