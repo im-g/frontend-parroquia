@@ -4,7 +4,7 @@
     <myheader></myheader>
     <div class="wrapper fadeInDown">
       <div class="contenedor-filtro">
-        
+        <h1 style="text-align:center;font-weight: bold;margin-bottom: 40px;">SOLICITUDES PARTIDAS</h1>
           <div  id="formContent">
             <h5 class="pt-3"
               style="color: #1d566f; font-family: 'Oswald', sans-serif"

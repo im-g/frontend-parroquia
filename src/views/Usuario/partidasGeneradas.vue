@@ -2,52 +2,71 @@
   <div>
     <mynav></mynav>
     <myheader></myheader>
-    <div class="wrapper fadeInDown">
-      <div class="contenedor-filtro">
-        
-        <h1
-          class="mb-3"
-          style="color: #2b7797; font-family: 'Oswald', sans-serif"
-        >
-          Partidas Generadas
-        </h1>
-
-        <div class="bucle">
-          <div v-for="(item, index) in allSolicitudPartidas.edges" :key="index">
-            <div v-if="item.node.usuario.id == id">
-              <p>
-                <button
-                  class="btn btn-primary btn-lg btn-block"
-                  data-toggle="collapse"
-                  :data-target="'#' + index"
-                  aria-expanded="false"
-                  aria-controls="collapseExample"
-                >
-                  {{ item.node.tipo }}
-                </button>
-              </p>
-              <div class="collapse" :id="index">
-                <div class="card card-body">
-                  <p>{{ "Tipo solicitud " + item.node.tipo }}</p>
-                  <p>{{ "Estado " + item.node.estado }}</p>
-                  <p>{{ "Usuario " + item.node.usuario.nombre }}</p>
-                  <p>
-                    {{ "Fecha inscripcion " + item.node.fechaInscripcion }}
-                  </p>
-                  <span v-if="item.node.respuesta== ''">SIN RESPUESTA</span>
-                  <span v-else><p>{{ "respuesta: " + item.node.respuesta }}</p></span>
+    <div class="wrapper fadeInDown general">
+      <h1 style="text-align: center; font-weight: bold; margin-bottom: 40px">
+        SOLICITUDES PARTIDAS
+      </h1>
                   
-                </div>
+
+      <div
+        class="myfiltro"
+        style="
+          display: flex;
+          justify-content: center;
+          margin: 15px 0px;
+          gap: 20px;
+          align-items: center;
+        "
+      >
+        
+          <div style="text-align: center">
+            <h3>Crear Nueva partida</h3>
+          </div>
+          <button
+            class="btnuno"
+            v-on:click="crearPartida"
+          >
+            Crear
+          </button>
+        
+      </div>
+<p style="text-align:center;">A Continuación  puede seleccionar el botón crear para generar una nueva solicitud de partida</p>    
+      
+      <h2 style="text-align: center; font-weight: bold;margin-top: 40px;">
+        MIS SOLICITUDES PARTIDAS
+      </h2>
+      <p style="text-align:center;">Se listan todas las solicitudes de partidas generadas por el usuario en sesión  </p>    
+
+      <div class="bucle">
+        <div v-for="(item, index) in allSolicitudPartidas.edges" :key="index">
+          <div v-if="item.node.usuario.id == id">
+            <p>
+              <button
+                class="accordion-button collapsed"
+                data-toggle="collapse"
+                :data-target="'#' + index"
+                aria-expanded="false"
+                aria-controls="collapseExample"
+              >
+              <p>{{ item.node.usuario.nombre+ " / "+item.node.fechaInscripcion}}</p>
+                
+              </button>
+            </p>
+            <div class="collapse" :id="index">
+              <div class="card card-body">
+                <p>{{ "Tipo solicitud " + item.node.tipo }}</p>
+                <p>{{ "Estado " + item.node.estado }}</p>
+                <p>{{ "Usuario " + item.node.usuario.nombre }}</p>
+                <p>
+                  {{ "Fecha inscripcion " + item.node.fechaInscripcion }}
+                </p>
+                <span v-if="item.node.respuesta == ''">SIN RESPUESTA</span>
+                <span v-else
+                  ><p>{{ "respuesta: " + item.node.respuesta }}</p></span
+                >
               </div>
             </div>
           </div>
-
-          <button
-            class="button1 btn-block btn btn-primary"
-            v-on:click="crearPartida"
-          >
-            Crear Nueva partida
-          </button>
         </div>
       </div>
     </div>
@@ -55,9 +74,9 @@
 </template>
 
 <script>
-import mynav from './mynav.vue'
+import mynav from "./mynav.vue";
 
-import myheader from '../../components/header.vue'
+import myheader from "../../components/header.vue";
 export default {
   name: "partidasGeneradas",
 
@@ -113,7 +132,10 @@ a {
   text-decoration: none;
   font-weight: 400;
 }
-
+.general{
+  margin: 0 auto;
+    width: 90%;
+}
 .contenedor {
   padding-top: 15px;
 }
@@ -124,18 +146,30 @@ a {
   justify-content: center;
   text-align: center;
 }
+.btnuno{
+  border-radius: 10px;
+  background-color: #3ea3cd;
+  color: white;
+  border: none;
+  width: 25%;
+    padding: 7px;
+}
 .filtro {
   display: flex;
   padding: 15px;
 }
+.accordion-button {
+  width: 100%;
+  background: lightslategrey;
+  color: white;
+  font-size: 1rem;
+  border-radius: 10px;
+  
+}
+
 .bucle {
-  border: none;
-  padding: 15px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  text-transform: uppercase;
-  font-size: 13px;
+  grid-column-start: 2;
+  grid-column-end: 4;
 }
 /* ANIMATIONS */
 
@@ -161,26 +195,8 @@ a {
     transform: none;
   }
 }
-.button1 {
-  background-color: #33FF99;
-  border: none;
-  color: black;
-  padding: 15px 80px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  text-transform: uppercase;
-} /* Green */
-button {
-  background-color: #39ace7;
-  border: none;
-  color: white;
-  padding: 15px 80px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  text-transform: uppercase;
-}
+ /* Green */
+
 
 @keyframes fadeInDown {
   0% {

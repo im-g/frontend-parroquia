@@ -3,7 +3,7 @@
   <mynav></mynav>
   <myheader></myheader>
   <div class="wrapper fadeInDown">
-    
+     <h1 style="text-align:center;font-weight: bold;margin-bottom: 40px;">SOLICITUDES CITAS</h1>
     <div class="row">
       <div class="col-md">
         <h3
