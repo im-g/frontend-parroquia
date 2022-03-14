@@ -3,21 +3,10 @@
   <mynav></mynav>
   <myheader></myheader>
   <div class="wrapper fadeInDown general">
-     <h1 style="text-align:center;font-weight: bold;margin-bottom: 40px;">SOLICITUDES CITAS</h1>
+     <h1 style="text-align:center;font-weight: bold;margin-bottom: 40px;">CREAR SOLICITUD CITA</h1>
     
       <div class="myfiltro" style="display: flex;justify-content: center;margin: 15px 0px; gap:20px;align-items: center;">
-        <div style="text-align: center;">
-          <h3>Crear solicitud cita</h3>
-          
-        </div>
         
-        <button
-            class="btnuno"
-            v-on:click="crearPartida"
-          >
-            Crear
-          </button>
-        <!--
         <div id="formContent" class="contenedor">
           <form v-on:submit.prevent="solicitarCita">
             <input
@@ -69,41 +58,7 @@
             <input type="submit" class="fadeIn fourth" value="Solicitar" />
           </form>
         </div>
-      -->
-      
       </div>
-      <p style="text-align:center;">A Continuación  puede seleccionar el botón crear para generar una nueva solicitud de cita</p>    
-      <h2 style="text-align: center; font-weight: bold;margin-top: 40px;">
-        MIS SOLICITUDES CITAS
-      </h2>
-        <p style="text-align:center;">Se listan todas las solicitudes de citas generadas por el usuario en sesión  </p>    
-        <div class="bucle">
-          <div v-for="(item, index) in allSolicitudes.edges" :key="index">
-            <div v-if="item.node.usuario.id == id">
-              <p>
-                <button
-                  class="accordion-button collapsed"
-                  data-toggle="collapse"
-                  :data-target="'#' + index"
-                  aria-expanded="false"
-                  aria-controls="collapseExample"
-                  
-                >
-                <p>{{ item.node.servicio.nombreServicio }}</p>
-                  
-                </button>
-                
-              </p>
-              <div class="collapse" :id="index">
-                <div class="card card-body">
-                  <p>{{ "Estado " + item.node.estado }}</p>
-                  <p>{{ "Fecha " + item.node.fecha }}</p>
-                  <p>{{ "Hora " + item.node.hora }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
   </div>
 </div>
 </template>
@@ -112,7 +67,7 @@ import mynav from './mynav.vue'
 
 import myheader from '../../components/header.vue'
 export default {
-  name: "solicitarCita",
+  name: "crearSolicitudCita",
   components:{
     mynav,
     myheader,
@@ -165,9 +120,6 @@ export default {
           this.allTemplos = response.data.allTemplos.edges;
         });
     },
-    crearPartida(){
-      this.$router.push({ name: "crearSolicitudCita" });      
-    },
     obteneridTemplo() {
       for (let variable of this.allTemplos) {
         if (variable.node.nombre == this.templo) {
@@ -184,7 +136,6 @@ export default {
     },
 
     solicitarCita() {
-      /*
       console.log("hora", this.horaSolicitud);
       console.log("fecha", this.fechaSolicitud);
       console.log("servicio", this.Servicio);
@@ -192,7 +143,6 @@ export default {
       console.log("idUser", this.id);
       console.log("idTemplo:", this.idTemplo);
       console.log("idServicio :", this.idServicio);
-      */
       this.obteneridTemplo();
       this.obteneridServicio();
       this.$apollo
@@ -219,7 +169,7 @@ export default {
             "success"
           ).then(() => {
             // Aquí la alerta se ha cerrado}
-            location.reload(true);
+            this.$router.push({ name: "solicitarCita" });
           });
         });
     },

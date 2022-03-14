@@ -62,6 +62,11 @@ base: process.env.BASE_URL,
       component: () => import("@/views/Usuario/partidasGeneradas.vue"),
     },
     {
+      path:"/crearSolitudcita",
+      name: "crearSolicitudCita",
+      component: () => import("@/views/Usuario/crearSolicitudCita.vue"),
+    },
+    {
       path: "/editarCita",
       name: "editarCita",
       component: () => import("@/views/Usuario/EditarSolicitudCita.vue"),
