@@ -2,6 +2,7 @@
   <div>
     <mynav></mynav>
     <myheader></myheader>
+    
     <div class="wrapper fadeInDown">
       <div class="container">
         <card-info></card-info>
@@ -13,7 +14,7 @@
 import CardInfo from "../../components/Cards/cardInfo.vue";
 import mynav from "./mynav.vue";
 
-import myheader from '../../components/header.vue'
+import myheader from "../../components/header.vue";
 export default {
   components: {
     mynav,
@@ -63,6 +64,14 @@ input[type="reset"] {
   -webkit-animation-delay: 0.8s;
   -moz-animation-delay: 0.8s;
   animation-delay: 0.8s;
+}
+div#carouselExampleSlidesOnly {
+    width: 75% !important;
+    margin: 0 auto;
+}
+img{
+  height: 500px;
+  width: 50px;
 }
 input[type="date"] {
   background-color: #f6f6f6;

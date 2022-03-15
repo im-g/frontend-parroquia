@@ -40,8 +40,7 @@
                     </div>
                   </div>
                 </div>
-                <a><br><button class="btn btn-primary" style="float: right;">Ver más</button>
-                </a> 
+                
               </div>
             </div>
           </div>
