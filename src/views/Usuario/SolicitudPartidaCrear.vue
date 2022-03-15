@@ -2,45 +2,81 @@
   <div>
     <mynav></mynav>
     <myheader></myheader>
-    <div class="wrapper fadeInDown">
-      <div class="contenedor-filtro">
-        <h1 style="text-align:center;font-weight: bold;margin-bottom: 40px;">SOLICITUDES PARTIDAS</h1>
-          <div  id="formContent">
-            <h5 class="pt-3"
-              style="color: #1d566f; font-family: 'Oswald', sans-serif"
-            >
-              Crear Solicitud            
-            </h5>
-
-            <form v-on:submit.prevent="crearSolicitud">
-              <select
-              tipe="select"              
-              class="form-select"
-              v-model="tipo"
-              aria-label="Default select example"
-              id="tipopartida"
-              >
-                <option disabled >Seleccione</option>
-                <option>bautismo</option>
-                <option>comunión</option>
-                <option>confirmación</option>
-                <option>matrimonio</option>
-                <option>defunción</option>              
-              </select>
-             
-              <input
-                type="date"
-                id="start"
-                class="fadeIn third"
-                v-model="fechaInscripcion"
-                required
-                name="fecha"
-                min="1950-01-01"
-                max="2022-01-31"
-              />
-              <input type="submit" class="fadeIn fourth" value="Crear" />
-            </form>
+    <div class="wrapper fadeInDown general">
+      <h1
+        style="text-align: center; 
+      font-weight: bold; 
+      margin-bottom: 40px
+      color: rgba(0, 0, 0, 0.4);"
+      >
+        SOLICITUDES PARTIDAS
+      </h1>
+        <h3
+          class="pt-3"
+          style="
+            display: flex;
+            justify-content: center;
+            margin: 15px 0px;
+            gap: 20px;
+            align-items: center;
+          "
+        >
+          Crear Solicitud Partida
+        </h3>
+        <div
+          class="myfiltro"
+          style="
+            display: flex;
+            justify-content: center;
+            margin: 15px 0px;
+            gap: 20px;
+            align-items: center;
+          "
+        >
+        <select
+          class="form-select"
+          aria-label="Default select example"
+          id="tipopartida"
+        >
+          <option selected disabled>Seleccionar Tipo</option>
+          <option>bautismo</option>
+          <option>comunión</option>
+          <option>confirmación</option>
+          <option>matrimonio</option>
+          <option>defunción</option>
+        </select>
+        </div>
+        <div
+          class="myfiltro"
+          style="
+            display: flex;
+            justify-content: center;
+            margin: 15px 0px;
+            gap: 20px;
+            align-items: center;
+          "
+        >
+          <div style="text-align: center">
+            <h3>seleccionar fecha</h3>
           </div>
+          <input
+            type="date"
+            v-model="fechaInscripcion"
+            id="start"
+            name="trip-start"
+          />
+        </div>
+        <div
+          class="myfiltro"
+          style="
+            display: flex;
+            justify-content: center;
+            margin: 15px 0px;
+            gap: 20px;
+            align-items: center;
+          "
+        >
+          <button class="btnuno" v-on:click="crearSolicitud">Crear</button>
         </div>
       </div>
     </div>
@@ -49,33 +85,35 @@
 
 
 <script>
-import mynav from './mynav.vue'
-import myheader from '../../components/header.vue'
+import mynav from "./mynav.vue";
+import myheader from "../../components/header.vue";
 export default {
-
   name: "crearSolicitud",
-  components:{
+  components: {
     myheader,
     mynav,
   },
   data() {
     return {
-      tipo : "",
+      tipo: "",
       fechaInscripcion: "",
       usuarioId: "",
-     
     };
   },
   mounted() {
     if (localStorage.id) {
       this.usuarioId = localStorage.id;
     }
+    this.fechaInscripcion = new Date().toISOString().substr(0, 10);
   },
   methods: {
     crearSolicitud() {
-      var updateRespuesta=document.getElementById("tipopartida").value.toString().toLowerCase();
-      
-      this.tipo=updateRespuesta;
+      var updateRespuesta = document
+        .getElementById("tipopartida")
+        .value.toString()
+        .toLowerCase();
+
+      this.tipo = updateRespuesta;
       console.log("fecha", this.fechaInscripcion);
       console.log("usuario ", this.usuarioId);
       console.log(this.tipo);
@@ -93,7 +131,7 @@ export default {
           fetchPolicy: "no-cache",
         })
         .then((response) => {
-          this.$swal("Correcto","Partida creada correctamente","success");
+          this.$swal("Correcto", "Partida creada correctamente", "success");
           console.log("Registro de crear Solicitud de Partida:", response.data);
           this.$router.push({ name: "partidasGeneradas" });
         });
@@ -104,15 +142,18 @@ export default {
 
 #estilos
 <style scoped>
-.contenedor {
-  position: relative;
-  display: inline-block;
-  text-align: center;
-}
 html {
   background-color: #56baed;
 }
-
+.btnuno {
+  border-radius: 10px;
+  align-content: center;
+  background-color: #3ea3cd;
+  color: white;
+  border: none;
+  width: 25%;
+  padding: 7px;
+}
 body {
   font-family: "Poppins", sans-serif;
   height: 100vh;
@@ -125,194 +166,64 @@ a {
   font-weight: 400;
 }
 
-h2 {
-  text-align: center;
-  font-size: 16px;
-  font-weight: 600;
-  text-transform: uppercase;
-  display: inline-block;
-  margin: 40px 8px 10px 8px;
-  color: #cccccc;
+.contenedor {
+  padding-top: 15px;
 }
-.form-select{
+.contenedor-filtro {
+  width: 70%;
+  margin: 0 auto;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.form-select {
   display: block;
   font-size: 16px;
-  font-family: 'Verdana', sans-serif;
+  font-family: "Verdana", sans-serif;
   font-weight: 400;
   color: #444;
   line-height: 1.3;
-  padding: .4em 1.4em .3em .8em;
+  padding: 0.4em 1.4em 0.3em 0.8em;
   width: 340px;
-  max-width: 100%; 
+  max-width: 100%;
   box-sizing: border-box;
- margin: 10px auto;
+  margin: 10px auto;
   border: 1px solid #aaa;
-  box-shadow: 0 1px 0 1px rgba(0,0,0,.03);
-  border-radius: .3em;
+  box-shadow: 0 1px 0 1px rgba(0, 0, 0, 0.03);
+  border-radius: 0.3em;
   -moz-appearance: none;
   -webkit-appearance: none;
   appearance: none;
   background-color: #fff;
-  background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'),
-    linear-gradient(to bottom, #ffffff 0%,#f7f7f7 100%);
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23007CB2%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"),
+    linear-gradient(to bottom, #ffffff 0%, #f7f7f7 100%);
   background-repeat: no-repeat, repeat;
-  background-position: right .7em top 50%, 0 0;
-  background-size: .65em auto, 100%;
+  background-position: right 0.7em top 50%, 0 0;
+  background-size: 0.65em auto, 100%;
 }
-.form-select::-ms-expand {
-  display: none;
-}
-
-.form-select:focus {
-  border-color: #aaa;
-  box-shadow: 0 0 1px 3px rgba(59, 153, 252, .7);
-  box-shadow: 0 0 0 3px -moz-mac-focusring;
-  color: #222; 
-  outline: none;
-}
-.form-select option {
-  font-weight:normal;
-}
-
-/* STRUCTURE */
-
-.wrapper {
-  display: flex;
-  align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  width: 100%;
-  min-height: 100%;
-  padding: 20px;
-}
-
-#formContent {
-  -webkit-border-radius: 10px 10px 10px 10px;
-  border-radius: 10px 10px 10px 10px;
-  background: #fff;
-  padding: 30px;
-  width: 95%;
-  max-width: 800px;
-  position: relative;
-  padding: 0px;
-  -webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
-  box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
-  text-align: center;
-}
-
-#formFooter {
-  background-color: #f6f6f6;
-  border-top: 1px solid #dce8f1;
-  padding: 25px;
-  text-align: center;
-  -webkit-border-radius: 0 0 10px 10px;
-  border-radius: 0 0 10px 10px;
-}
-
-/* TABS */
-
-h2.inactive {
-  color: #cccccc;
-}
-
-h2.active {
-  color: #0d0d0d;
-  border-bottom: 2px solid #5fbae9;
-}
-
-/* FORM TYPOGRAPHY*/
-
-input[type="button"],
-input[type="submit"],
-input[type="reset"] {
-  background-color: #56baed;
+select.form-select {
+  font-size: 1.5rem;
   border: none;
-  color: white;
-  padding: 15px 80px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  text-transform: uppercase;
-  font-size: 13px;
-  -webkit-box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
-  box-shadow: 0 10px 30px 0 rgba(95, 186, 233, 0.4);
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
-  margin: 5px 20px 40px 20px;
-  -webkit-transition: all 0.3s ease-in-out;
-  -moz-transition: all 0.3s ease-in-out;
-  -ms-transition: all 0.3s ease-in-out;
-  -o-transition: all 0.3s ease-in-out;
-  transition: all 0.3s ease-in-out;
+  border-radius: 10px;
+  color: rgba(0, 0, 0, 0.4);
+}
+.myp {
+  margin: 0;
 }
 
-input[type="button"]:hover,
-input[type="submit"]:hover,
-input[type="reset"]:hover {
-  background-color: #39ace7;
+.myfiltro {
+  grid-row-start: 1;
+  grid-row-end: 2;
 }
-
-input[type="button"]:active,
-input[type="submit"]:active,
-input[type="reset"]:active {
-  -moz-transform: scale(0.95);
-  -webkit-transform: scale(0.95);
-  -o-transform: scale(0.95);
-  -ms-transform: scale(0.95);
-  transform: scale(0.95);
+.filtro {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  padding: 15px;
 }
-
-input[type="date"]{
-  background-color: #f6f6f6;
-  border: none;
-  color: #0d0d0d;
-  padding: 15px 32px;
-  display: inline-block;
-  font-size: 16px;
-  text-align: center;
-  text-decoration: none;
-  margin: 5px;
-  width: 60%;
-  border: 2px solid #f6f6f6;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
+.bucle {
+  grid-column-start: 2;
+  grid-column-end: 4;
 }
-input[type="text"] {
-  background-color: #f6f6f6;
-  border: none;
-  color: #0d0d0d;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 5px;
-  width: 85%;
-  border: 2px solid #f6f6f6;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -ms-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-  -webkit-border-radius: 5px 5px 5px 5px;
-  border-radius: 5px 5px 5px 5px;
-}
-
-
-input[type="text"]:focus {
-  background-color: #fff;
-  border-bottom: 2px solid #5fbae9;
-}
-
-input[type="text"]:placeholder {
-  color: #cccccc;
-}
-
 /* ANIMATIONS */
 
 /* Simple CSS3 Fade-in-down Animation */
@@ -324,7 +235,23 @@ input[type="text"]:placeholder {
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
-
+.info-filtro {
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
+  gap: 10px;
+}
+.general {
+  margin: 0 auto;
+  width: 90%;
+  color: rgba(0, 0, 0, 0.4);
+}
+input#start {
+  border-radius: 10px;
+  border: none;
+  font-size: 1.5rem;
+  color: rgba(0, 0, 0, 0.4);
+}
 @-webkit-keyframes fadeInDown {
   0% {
     opacity: 0;
@@ -435,14 +362,17 @@ input[type="text"]:placeholder {
 .underlineHover:hover:after {
   width: 100%;
 }
+.accordion-button {
+  width: 100%;
+  background: lightslategrey;
+  color: white;
+  font-size: 1rem;
+  border-radius: 10px;
+}
 
 /* OTHERS */
 
 *:focus {
   outline: none;
-}
-
-#icon {
-  width: 60%;
 }
 </style>
