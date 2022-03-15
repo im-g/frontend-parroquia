@@ -1,0 +1,25 @@
+mutation createRegistroCurso(
+    $fechaInicio: String!
+    $fechaFin: String!
+    $usuarioId: ID!
+    $cursoId: ID!
+){
+  createRegistroCurso(
+    registroCursoData:{
+        fechaInicio:$fechaInicio
+        fechaFin:$fechaFin
+        usuarioId:$usuarioId
+        cursoId:$cursoId
+  }
+  ){
+    registroCurso {
+      id
+      curso {
+        nombreCurso
+      }
+      usuario{
+        nombre
+      }
+    }
+  }
+}

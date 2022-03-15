@@ -1,0 +1,11 @@
+query allCursos{
+  allCursos{
+    edges{
+      node{
+        nombreCurso
+        id
+        lugar
+      }
+    }
+  }
+}

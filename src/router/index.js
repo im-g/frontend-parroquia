@@ -42,6 +42,11 @@ base: process.env.BASE_URL,
       component: () => import("@/views/Usuario/solicitarCita.vue"),
     },
     {
+      path: "/registrarCurso",
+      name: "registrarCurso",
+      component: () => import("@/views/Usuario/registrarCurso.vue"),
+    },
+    {
       path: "/inicio",
       name: "inicio",
       component: () => import("@/views/Usuario/inicio.vue"),

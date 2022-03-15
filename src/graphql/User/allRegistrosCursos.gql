@@ -1,0 +1,17 @@
+query allRegistroCurso{
+  allRegistroCurso{
+    edges{
+      node{
+        curso{
+          nombreCurso
+          id
+        }
+        usuario{
+          nombre
+          id
+        }
+      }
+    }
+  }
+  
+}

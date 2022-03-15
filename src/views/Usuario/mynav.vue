@@ -26,6 +26,9 @@
           <a class="nav-link" href="/partidasGeneradas">Solicitud Partida</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="/registrarCurso">Registrar Cursos</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="#">Sedes</a>
         </li>
         <li class="nav-item dropdown">
