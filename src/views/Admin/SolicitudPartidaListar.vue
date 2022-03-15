@@ -30,7 +30,7 @@
         <select
           v-on:change="filtrar($event)"
           class="form-select"
-          aria-label="Default select example"
+          aria-label="  "
         >
           <option selected disabled>Partidas</option>
           <option>BAUTISMO</option>

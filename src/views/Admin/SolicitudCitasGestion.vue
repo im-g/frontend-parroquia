@@ -4,75 +4,141 @@
     <nav-admin></nav-admin>
     <myheader></myheader>
     <div class="wrapper fadeInDown general">
-      <h1 style="text-align:center;font-weight: bold;margin-bottom: 40px;color:rgba(0, 0, 0, 0.4);">GESTION SOLICITUDES CITAS</h1>
-      <div class="myfiltro" style="display: flex;justify-content: center;margin: 15px 0px; gap:20px;align-items: center;">
-        
-        <div style="text-align: center;">
+      <h1
+        style="
+          text-align: center;
+          font-weight: bold;
+          margin-bottom: 40px;
+          color: rgba(0, 0, 0, 0.4);
+        "
+      >
+        GESTION SOLICITUDES CITAS
+      </h1>
+      <div
+        class="myfiltro"
+        style="
+          display: flex;
+          justify-content: center;
+          margin: 15px 0px;
+          gap: 20px;
+          align-items: center;
+        "
+      >
+        <div style="text-align: center">
           <h3>seleccionar fecha</h3>
-          
         </div>
-        
-            
-            <input type="date"
-              v-model="myfecha"
-              v-on:change="filtrar()"
-              id="start"
-              name="trip-start"/>
-          </div>
-            <p style="text-align:center;">Se van a listar todas las solicitudes en estado solicitado para la fecha seleccionada  </p>
+        <input
+          type="date"
+          v-model="myfecha"
+          v-on:change="filtrar()"
+          id="start"
+          name="trip-start"
+        />
+      </div>
+      <p style="text-align: center">
+        Se van a listar todas las solicitudes en estado solicitado para la fecha
+        seleccionada
+      </p>
 
-          <div class="info-filtro">
-            <div>
-              <div style="background:#3ea3cd; border-radius:10px; color:white;padding: 0.5rem;">
-                <p class="myp">Aprobado</p>
-              </div>
-              
-              <p>Se aprueba una solicitud de un usuario y pasa a ser parte del cronograma de compromisos de la parroquia para la fecha establecida</p>
-            </div>
-            <div>
-              <div style="background:#8c8e8f; border-radius:10px; color:white;padding: 0.5rem;">
-                <p class="myp">Desaprobado</p>
-              </div>
-              
-              <p>Se desaprueba una solicitud de un usuario al no poder agendarse por no cumplir con los requisitos necesarios para ser aprobada</p>
-            </div>
-            
+      <div class="info-filtro">
+        <div>
+          <div
+            style="
+              background: #3ea3cd;
+              border-radius: 10px;
+              color: white;
+              padding: 0.5rem;
+            "
+          >
+            <p class="myp">Aprobado</p>
           </div>
-        
-          <div class="bucle">
-            <div v-if="datatime != 'nodata'">
-              <div v-for="(item, index) in allSolicitudes.edges" :key="index">
-                <div v-if="item.node.estado == 'SOLICITADO'">
+
+          <p>
+            Se aprueba una solicitud de un usuario y pasa a ser parte del
+            cronograma de compromisos de la parroquia para la fecha establecida
+          </p>
+        </div>
+        <div>
+          <div
+            style="
+              background: #8c8e8f;
+              border-radius: 10px;
+              color: white;
+              padding: 0.5rem;
+            "
+          >
+            <p class="myp">Desaprobado</p>
+          </div>
+
+          <p>
+            Se desaprueba una solicitud de un usuario al no poder agendarse por
+            no cumplir con los requisitos necesarios para ser aprobada
+          </p>
+        </div>
+      </div>
+
+      <div class="bucle">
+        <div v-if="datatime != 'nodata'">
+          <div v-for="(item, index) in allSolicitudes.edges" :key="index">
+            <div v-if="item.node.estado == 'SOLICITADO'">
+              <p>
+                <button
+                  style="margin: 0"
+                  class="accordion-button collapsed"
+                  data-toggle="collapse"
+                  :data-target="'#' + index"
+                  aria-expanded="false"
+                  aria-controls="collapseExample"
+                >
                   <p>
-                    <button
-                    style="margin: 0;"
-                      class="accordion-button collapsed"
-                      data-toggle="collapse"
-                      :data-target="'#' + index"
-                      aria-expanded="false"
-                      aria-controls="collapseExample">
-                      <p>{{ "Hora Agenda " + item.node.hora}}{{ " / Solicitante " }}{{ item.node.usuario.nombre }}</p>
-                    </button>
+                    {{ "Hora Agenda " + item.node.hora }}{{ " / Solicitante "
+                    }}{{ item.node.usuario.nombre }}
                   </p>
-                  <div class="collapse" :id="index">
-                    <div class="card card-body">
-                      <p>{{"Tipo solicitud " + item.node.servicio.nombreServicio}} </p>
-                      <p>{{ "Estado " + item.node.estado }}</p>
-                      <p>{{ "Nombre solicitante " + item.node.usuario.nombre }}</p>
-                      <p>{{ "Templo agendado  " + item.node.templo.nombre }}</p>
-                      <p>{{ "Fecha agendada " + item.node.fecha }}</p>
-                      <p>{{ "Hora agendada " + item.node.hora }}</p>
-                      <button style="background:#3ea3cd;border: none;margin-bottom: 10px;" v-on:click="respuestaSolicitud(item.node, 'separado')" type="button" class="btn btn-success">Aprobado</button>
-                      <button style="background:#8c8e8f;border: none;" v-on:click="respuestaSolicitud(item.node, 'cancelado')" type="button"  class="btn btn-danger">Desaprobado</button>
-                    </div>
-                  </div>
+                </button>
+              </p>
+              <div class="collapse" :id="index">
+                <div class="card card-body">
+                  <p>
+                    {{ "Tipo solicitud " + item.node.servicio.nombreServicio }}
+                  </p>
+                  <p>{{ "Estado " + item.node.estado }}</p>
+                  <p>{{ "Nombre solicitante " + item.node.usuario.nombre }}</p>
+                  <p>{{ "Templo agendado  " + item.node.templo.nombre }}</p>
+                  <p>{{ "Fecha agendada " + item.node.fecha }}</p>
+                  <p>{{ "Hora agendada " + item.node.hora }}</p>
+                  <button
+                    style="
+                      background: #3ea3cd;
+                      border: none;
+                      margin-bottom: 10px;
+                    "
+                    v-on:click="respuestaSolicitud(item.node, 'separado')"
+                    type="button"
+                    class="btn btn-success"
+                  >
+                    Aprobado
+                  </button>
+                  <button
+                    style="background: #8c8e8f; border: none"
+                    v-on:click="respuestaSolicitud(item.node, 'cancelado')"
+                    type="button"
+                    class="btn btn-danger"
+                  >
+                    Desaprobado
+                  </button>
                 </div>
               </div>
             </div>
-            <div v-else>
-              <p style="text-align:center;color: white;background-color: darkgray;">Por favor Seleccionar fecha de Solicitudes</p>
-            </div>
           </div>
+        </div>
+        <div v-else>
+          <p
+            style="text-align: center; color: white; background-color: darkgray"
+          >
+            Por favor Seleccionar fecha de Solicitudes
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -98,14 +164,14 @@ export default {
       password: "",
       selected: "",
       datatime: "nodata",
-      myfecha:""
+      myfecha: "",
     };
   },
   mounted() {
     if (localStorage.id) {
       this.id = localStorage.id;
     }
-    this.myfecha=new Date().toISOString().substr(0, 10);
+    this.myfecha = new Date().toISOString().substr(0, 10);
     this.filtrar();
   },
 
@@ -157,7 +223,7 @@ export default {
     },
     filtrar() {
       //console.log("cambio", e.target.value);
-      let self=this;
+      let self = this;
       this.datatime = this.myfecha;
       this.$apollo
         .mutate({
@@ -216,7 +282,7 @@ a {
   justify-content: center;
   text-align: center;
 }
-.myp{
+.myp {
   margin: 0;
 }
 .myfiltro {
@@ -243,22 +309,22 @@ a {
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
 }
-.info-filtro{
+.info-filtro {
   text-align: center;
   display: flex;
-    justify-content: space-around;
-    gap: 10px;
+  justify-content: space-around;
+  gap: 10px;
 }
-.general{
+.general {
   margin: 0 auto;
-    width: 90%;
-    color:rgba(0, 0, 0, 0.4);
+  width: 90%;
+  color: rgba(0, 0, 0, 0.4);
 }
 input#start {
-    border-radius: 10px;
-    border: none;
-    font-size: 1.5rem;
-    color:rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+  border: none;
+  font-size: 1.5rem;
+  color: rgba(0, 0, 0, 0.4);
 }
 @-webkit-keyframes fadeInDown {
   0% {
@@ -370,7 +436,7 @@ input#start {
 .underlineHover:hover:after {
   width: 100%;
 }
-.accordion-button{
+.accordion-button {
   width: 100%;
   background: lightslategrey;
   color: white;
