@@ -124,6 +124,15 @@ export default {
   },
 
   methods: {
+    tildes(cadena){
+
+      if(cadena=='comunion'){return 'comunión'}
+      if(cadena=='confirmacion'){return 'confirmación'}
+      if(cadena=='defuncion'){return 'defunción'}
+
+      return cadena
+
+    },
     respuestaSolicitud(item) {
       var updateRespuesta = document.getElementById(item.id).value.toString();
       var tipo = item.tipo;
@@ -137,7 +146,7 @@ export default {
           // Define las variables
           variables: {
             id: item.id,
-            tipo: tipo.toLowerCase(),
+            tipo: this.tildes(tipo.toLowerCase()),
             estado: "finalizado",
             respuesta: updateRespuesta,
           },
@@ -159,6 +168,7 @@ export default {
             response.data.allSolicitudPartidas.edges;
           this.$swal("Confirmación", "Solicitud Atentida", "success");
         });
+        
     },
     filtrar(e) {
       console.log("cambio", e.target.value);
