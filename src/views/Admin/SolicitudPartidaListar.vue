@@ -166,7 +166,11 @@ export default {
           console.log(response.data.allSolicitudPartidas.edges);
           this.allSolicitudPartidas.edges =
             response.data.allSolicitudPartidas.edges;
-          this.$swal("Confirmación", "Solicitud Atentida", "success");
+          this.$swal("Confirmación", "Solicitud Atentida", "success").then(() => {
+          // Aquí la alerta se ha cerrado}
+          //this.$router.push({ name: "inscribirCurso" });
+          location.reload(true);
+            });
         });
         
     },

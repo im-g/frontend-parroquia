@@ -246,6 +246,9 @@ select.form-select {
   width: 90%;
   color: rgba(0, 0, 0, 0.4);
 }
+p{
+  color: black;
+}
 input#start {
   border-radius: 10px;
   border: none;

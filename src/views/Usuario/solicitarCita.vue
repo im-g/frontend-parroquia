@@ -17,60 +17,6 @@
           >
             Crear
           </button>
-        <!--
-        <div id="formContent" class="contenedor">
-          <form v-on:submit.prevent="solicitarCita">
-            <input
-              type="time"
-              v-model="horaSolicitud"
-              required
-              max="19:30:00"
-              min="07:00:00"
-              step="1"
-            />
-            <input
-              type="date"
-              id="start"
-              class="fadeIn third"
-              value="<?php echo date('YYYY-mm-dd');?>"
-              v-model="fechaSolicitud"
-              required
-              name="login"
-              min="2022-02-20"
-              max="2022-12-31"
-            />
-
-            <select
-              type="select"
-              class="form-select"
-              v-model="templo"
-              aria-label="Default select example"
-              id="tipopartida"
-              required
-            >
-              <option disabled>Elegir Templo</option>
-              <option v-for="(item, index) in allTemplos" :key="index">
-                {{ item.node.nombre }}
-              </option>
-            </select>
-            <select
-              type="select"
-              class="form-select"
-              v-model="Servicio"
-              aria-label="Default select example"
-              id="tipopartida"
-              required
-            >
-              <option disabled>Elegir Servicio</option>
-              <option v-for="(item, index) in allServicios" :key="index">
-                {{ item.node.nombreServicio }}
-              </option>
-            </select>
-            <input type="submit" class="fadeIn fourth" value="Solicitar" />
-          </form>
-        </div>
-      -->
-      
       </div>
       <p style="text-align:center;">A Continuación  puede seleccionar el botón crear para generar una nueva solicitud de cita</p>    
       <h2 style="text-align: center; font-weight: bold;margin-top: 40px;">
@@ -184,15 +130,7 @@ export default {
     },
 
     solicitarCita() {
-      /*
-      console.log("hora", this.horaSolicitud);
-      console.log("fecha", this.fechaSolicitud);
-      console.log("servicio", this.Servicio);
-      console.log("Templo", this.templo);
-      console.log("idUser", this.id);
-      console.log("idTemplo:", this.idTemplo);
-      console.log("idServicio :", this.idServicio);
-      */
+      
       this.obteneridTemplo();
       this.obteneridServicio();
       this.$apollo
@@ -313,7 +251,9 @@ input[type="date"] {
   -webkit-border-radius: 5px 5px 5px 5px;
   border-radius: 5px 5px 5px 5px;
 }
-
+p{
+  color: black;
+}
 .form-select {
   display: block;
   font-size: 16px;

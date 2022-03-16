@@ -259,6 +259,9 @@ input#start {
   font-size: 1.5rem;
   color: rgba(0, 0, 0, 0.4);
 }
+p{
+  color: black;
+}
 @-webkit-keyframes fadeInDown {
   0% {
     opacity: 0;

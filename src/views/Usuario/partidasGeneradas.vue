@@ -60,7 +60,7 @@
                 <p>
                   {{ "Fecha inscripcion " + item.node.fechaInscripcion }}
                 </p>
-                <span v-if="item.node.respuesta == ''">SIN RESPUESTA</span>
+                <span v-if="item.node.respuesta == ''"><p>SIN RESPUESTA</p></span>
                 <span v-else
                   ><p>{{ "respuesta: " + item.node.respuesta }}</p></span
                 >
@@ -182,6 +182,9 @@ a {
   animation-duration: 1s;
   -webkit-animation-fill-mode: both;
   animation-fill-mode: both;
+}
+p{
+  color: black;
 }
 
 @-webkit-keyframes fadeInDown {
